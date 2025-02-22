@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react'; // Import Inertia Link
+import MainLayout from '@/Layouts/Frontend/MainLayout';
 
 const Home = ({ test101 }) => {
     function zabeer() {
@@ -22,4 +23,5 @@ const Home = ({ test101 }) => {
     );
 }
 
+Home.layout = page => <MainLayout>{page}</MainLayout>;
 export default Home;
