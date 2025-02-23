@@ -38,7 +38,7 @@ class CampaignDetailsController extends Controller
         $campaign = CampaignDetails::first();
 
         // Pass the campaign data to the view (if any)
-        return Inertia::render('CampaignDetails/EntryForm', [
+        return Inertia::render('Backend/CampaignDetails/EntryForm', [
             'data' => $campaign,
         ]);
     }
