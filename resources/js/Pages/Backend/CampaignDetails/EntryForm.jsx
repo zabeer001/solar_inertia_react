@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import BackendLayout from "@/Layouts/Backend/BackendLayout";
 
 const EntryForm = ({ data }) => {
     // Initialize form with existing campaign data or empty values
@@ -77,5 +77,7 @@ const EntryForm = ({ data }) => {
         </div>
     );
 };
+
+EntryForm.layout = (page) => <BackendLayout>{page}</BackendLayout>;
 
 export default EntryForm;
