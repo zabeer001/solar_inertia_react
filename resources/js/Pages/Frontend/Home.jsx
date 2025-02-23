@@ -2,23 +2,47 @@ import React from 'react';
 import { Link } from '@inertiajs/react'; // Import Inertia Link
 import MainLayout from '@/Layouts/Frontend/MainLayout';
 
-const Home = ({ test101 }) => {
-    function zabeer() {
-        console.log('hello');
-    }
+const Home = ({ siteDetails }) => {
+
+    // data from zabeer
+        console.log(siteDetails);
 
     return (
         <div>
-            <h1>Home Page</h1>
-            <p>{test101}</p> {/* Display the Laravel prop */}
-            <button onClick={zabeer}>Click Me</button>
+            <h1>Site Details Page</h1>
+        
 
-            {/* Link to the Blade Check Route */}
-            <div>
-                <a href={route('frontend.home.checkBlade')} style={{ color: 'blue', textDecoration: 'underline' }}>
-                    Go to Blade Check
-                </a>
-            </div>
+            <ul>
+                {siteDetails.map((site, index) => (
+                    <li key={index}>
+                        <strong>Main Image:</strong>
+                        {site.main_image_url && (
+                            <img src={site.main_image_url} alt="Main Image" width="200" />
+                        )}
+                        <br />
+                        <strong>Gallery Image 1:</strong>
+                        {site.gallery_image_1_url && (
+                            <img src={site.gallery_image_1_url} alt="Gallery Image 1" width="200" />
+                        )}
+                        <br />
+                        <strong>Gallery Image 2:</strong>
+                        {site.gallery_image_2_url && (
+                            <img src={site.gallery_image_2_url} alt="Gallery Image 2" width="200" />
+                        )}
+                        <br />
+                        <strong>Logo:</strong>
+                        {site.logo && (
+                            <img src={site.logo_url} alt="Logo" width="100" />
+                        )}
+                        <br />
+                        <strong>Hero Title:</strong> {site.hero_title} <br />
+                        <strong>Hero Description:</strong> {site.hero_description} <br />
+                        <strong>Card Text:</strong> {site.card_text} <br />
+                        <strong>Card Button:</strong> {site.card_btn} <br />
+                        <hr />
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

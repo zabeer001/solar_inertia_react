@@ -19,7 +19,7 @@ export const AdminDashboardTabsList = [
         id: crypto.randomUUID(),
         path: "/dashboard/upload-images",
         icon: CiImageOn,
-        linkText: "Upload Images",
+        linkText: "Manage Designs",
         roles: ["admin"],
     },
     {

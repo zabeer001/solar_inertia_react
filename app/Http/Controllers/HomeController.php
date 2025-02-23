@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
+use App\Models\SiteDetails;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,9 +17,30 @@ class HomeController extends Controller
 
     public function index(): Response
     {
-        $test101 = 'a part of testing';
+           // Paginate the SiteDetails (you can adjust the number of items per page)
+    $siteDetails = SiteDetails::paginate(10)->map(function ($site) {
+        // Define columns that need asset URLs
+        $imageColumns = [
+            'main_image',
+            'gallery_image_1',
+            'gallery_image_2',
+            'logo', // Add more image columns as needed
+        ];
 
-        return Inertia::render('Frontend/Home', compact('test101'));
+        // Dynamically generate full URLs for each image column
+        foreach ($imageColumns as $column) {
+            if ($site->$column) {
+                // Construct the asset URL for each image column
+                $site->{$column . '_url'} = asset('uploads/' . $site->$column);
+            }
+        }
+
+        return $site;
+    });
+
+    // dd($siteDetails);
+
+        return Inertia::render('Frontend/Home', compact('siteDetails'));
     }
 
     /**
