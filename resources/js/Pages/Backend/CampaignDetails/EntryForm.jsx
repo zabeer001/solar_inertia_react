@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BackendLayout from "@/Layouts/Backend/BackendLayout";
+import { Inertia } from "@inertiajs/inertia";
 
 const EntryForm = ({ data }) => {
     // Initialize form with existing campaign data or empty values
@@ -21,7 +22,7 @@ const EntryForm = ({ data }) => {
     // Submit the form data to store or update campaign
     const submitForm = async (e) => {
         e.preventDefault();
-        await Inertia.post("/campaign-details", form); // Submit the form data
+        await Inertia.post("campaign-details", form); // Submit the form data
     };
 
     return (
