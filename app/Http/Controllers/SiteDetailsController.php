@@ -5,62 +5,77 @@ namespace App\Http\Controllers;
 use App\Models\SiteDetails;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 use Illuminate\Support\Facades\Storage;
-
+use App\Traits\FileUploadTrait;
 
 class SiteDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-public function index()
-{
-    // Paginate the SiteDetails (you can adjust the number of items per page)
-    $siteDetails = SiteDetails::paginate(10)->map(function ($site) {
-        // Define columns that need asset URLs
-        $imageColumns = [
-            'main_image',
-            'gallery_image_1',
-            'gallery_image_2',
-            'logo', // Add more image columns as needed
-        ];
 
-        // Dynamically generate full URLs for each image column
-        foreach ($imageColumns as $column) {
-            if ($site->$column) {
-                // Construct the asset URL for each image column
-                $site->{$column . '_url'} = asset('uploads/' . $site->$column);
+    use FileUploadTrait;
+
+    public function index()
+    {
+        // Paginate the SiteDetails (you can adjust the number of items per page)
+        $siteDetails = SiteDetails::paginate(10)->map(function ($site) {
+            // Define columns that need asset URLs
+            $imageColumns = [
+                'main_image',
+                'gallery_image_1',
+                'gallery_image_2',
+                'logo', // Add more image columns as needed
+            ];
+
+            // Dynamically generate full URLs for each image column
+            foreach ($imageColumns as $column) {
+                if ($site->$column) {
+                    // Construct the asset URL for each image column
+                    $site->{$column . '_url'} = asset('uploads/' . $site->$column);
+                }
             }
-        }
 
-        return $site;
-    });
+            return $site;
+        });
 
-    // dd($siteDetails);
+        // dd($siteDetails);
 
-    return Inertia::render('Backend/SiteDetails/Index', compact('siteDetails'));
-}
+        return Inertia::render('Backend/SiteDetails/Index', compact('siteDetails'));
+    }
 
 
     /**
      * Show the form for creating a new resource.
      */
-    public function ceateOrEdit()
+    public function showOrCreate()
     {
-        $siteDetail = SiteDetails::latest()->first();
-   
-        
+        //     $siteDetail = SiteDetails::latest()->first();    
 
-       
-        
-    //   dd('zabeer');
-      return Inertia::render('Backend/SiteDetails/CeateOrEdit',compact('siteDetail'));
+        // //   dd('zabeer');
+        //   return Inertia::render('Backend/SiteDetails/CeateOrEdit',compact('siteDetail'));
+
+        $heroSection = SiteDetails::first();
+
+        if ($heroSection) {
+            $heroSection->main_image_url = $heroSection->main_image ? asset('storage/' . $heroSection->main_image) : null;
+            $heroSection->gallery_image_1_url = $heroSection->gallery_image_1 ? asset('storage/' . $heroSection->gallery_image_1) : null;
+            $heroSection->gallery_image_2_url = $heroSection->gallery_image_2 ? asset('storage/' . $heroSection->gallery_image_2) : null;
+            $heroSection->logo_url = $heroSection->logo ? asset('storage/' . $heroSection->logo) : null;
+        }
+
+
+        // Pass the campaign data to the view (if any)
+        return Inertia::render('Backend/SiteDetails/CreateOrEdit', [
+            'siteDetail' => $heroSection,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-  
+
 
     /**
      * Display the specified resource.
@@ -81,80 +96,73 @@ public function index()
     /**
      * Update the specified resource in storage.
      */
-    public function store(Request $request)
-{
-    $validated = $request->validate([
-        'main_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'gallery_image_1' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'gallery_image_2' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'hero_title' => 'nullable|string|max:255',
-        'hero_description' => 'nullable|string',
-        'card_text' => 'nullable|string',
-        'card_btn' => 'nullable|string|max:255',
-    ]);
+    public function storeOrUpdate(Request $request)
+    {
 
-    // Handle file uploads and move them to 'public/uploads'
-    if ($request->hasFile('main_image')) {
-        $validated['main_image'] = $request->file('main_image')->store('uploads', 'public');
-    }
-    if ($request->hasFile('gallery_image_1')) {
-        $validated['gallery_image_1'] = $request->file('gallery_image_1')->store('uploads', 'public');
-    }
-    if ($request->hasFile('gallery_image_2')) {
-        $validated['gallery_image_2'] = $request->file('gallery_image_2')->store('uploads', 'public');
-    }
-    if ($request->hasFile('logo')) {
-        $validated['logo'] = $request->file('logo')->store('uploads', 'public');
-    }
+        // $validatedData = $request->validate([
+        //     'hero_title' => 'nullable|string|max:255',
+        //     'hero_description' => 'nullable|string|max:500',
+        //     'card_text' => 'nullable|string|max:255',
+        //     'card_btn' => 'nullable|string|max:255',
+        //     'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'gallery_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'gallery_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ]);
 
-    // Save data to database
-    $siteDetail = SiteDetails::create($validated);
+        $heroSection = SiteDetails::first();
 
-    return redirect()->route('backend.siteDetails.index')
-                     ->with('success', 'Site details stored successfully!');
-}
+        if (!$heroSection) {
+            $heroSection = new SiteDetails();
+        }
 
-public function update(Request $request, SiteDetails $siteDetails)
-{
-    dd($request);
-    $validated = $request->validate([
-        'main_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'gallery_image_1' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'gallery_image_2' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'logo' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-        'hero_title' => 'nullable|string|max:255',
-        'hero_description' => 'nullable|string',
-        'card_text' => 'nullable|string',
-        'card_btn' => 'nullable|string|max:255',
-    ]);
+        $heroSection->hero_title = $request->hero_title;
+        $heroSection->hero_description = $request->hero_description;
+        $heroSection->card_text = $request->card_text; 
+        $heroSection->card_btn = $request->card_btn; 
 
-    // Handle file updates
-    if ($request->hasFile('main_image')) {
-        Storage::disk('public')->delete($siteDetails->main_image);
-        $validated['main_image'] = $request->file('main_image')->store('uploads', 'public');
-    }
-    if ($request->hasFile('gallery_image_1')) {
-        Storage::disk('public')->delete($siteDetails->gallery_image_1);
-        $validated['gallery_image_1'] = $request->file('gallery_image_1')->store('uploads', 'public');
-    }
-    if ($request->hasFile('gallery_image_2')) {
-        Storage::disk('public')->delete($siteDetails->gallery_image_2);
-        $validated['gallery_image_2'] = $request->file('gallery_image_2')->store('uploads', 'public');
-    }
-    if ($request->hasFile('logo')) {
-        Storage::disk('public')->delete($siteDetails->logo);
-        $validated['logo'] = $request->file('logo')->store('uploads', 'public');
+        // Handle image uploads without deleting old ones if not provided
+        if ($request->hasFile('main_image')) {
+            if ($heroSection->main_image) {
+                Storage::disk('public')->delete($heroSection->main_image); // Delete old image
+            }
+            $heroSection->main_image = $request->file('main_image')->store('images', 'public');
+        }
+
+        if ($request->hasFile('gallery_image_1')) {
+            if ($heroSection->gallery_image_1) {
+                Storage::disk('public')->delete($heroSection->gallery_image_1);
+            }
+            $heroSection->gallery_image_1 = $request->file('gallery_image_1')->store('images', 'public');
+        }
+
+        if ($request->hasFile('gallery_image_2')) {
+            if ($heroSection->gallery_image_2) {
+                Storage::disk('public')->delete($heroSection->gallery_image_2);
+            }
+            $heroSection->gallery_image_2 = $request->file('gallery_image_2')->store('images', 'public');
+        }
+
+        if ($request->hasFile('logo')) {
+            if ($heroSection->logo) {
+                Storage::disk('public')->delete($heroSection->logo);
+            }
+            $heroSection->logo = $request->file('logo')->store('logos', 'public');
+        }
+
+        $heroSection->save();
+
+        return redirect()->route('siteDetails.showOrCreate');
+
+
+
     }
 
-    // Update existing data
-    $siteDetails->update($validated);
 
-    // Flash success message
-    session()->flash('success', 'Site details updated successfully!');
 
-    return back(); // Use back() to redirect to the same page (or any other appropriate redirect)
-}
+
+
+
 
 
     /**

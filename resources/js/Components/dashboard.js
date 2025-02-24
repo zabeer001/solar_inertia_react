@@ -43,5 +43,20 @@ export const AdminDashboardTabsList = [
         linkText: "Create ARV Target",
         roles: ["admin"],
     },
+    {
+        id: crypto.randomUUID(),
+        path: "/admin/site-details",
+        icon: FaFileAlt,
+        linkText: "Hero Sections",
+        roles: ["admin"],
+    },
+    {
+        id: crypto.randomUUID(),
+        path: "/admin/content-details",
+        icon: FaFileAlt,
+        linkText: "Content Sections",
+        roles: ["admin"],
+    },
+
 
 ];
