@@ -4,9 +4,9 @@ use App\Http\Controllers\SalesTrackedController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->group(function () {
-    Route::post('/campaign-details', [CampaignDetailsController::class, 'storeOrUpdate'])->name('campaign.storeOrUpdate');
-    Route::get('/campaign-details', [CampaignDetailsController::class, 'showOrCreate'])->name('campaign.details');
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::post('campaign-details', [CampaignDetailsController::class, 'storeOrUpdate'])->name('campaign.storeOrUpdate');
+    Route::get('campaign-details', [CampaignDetailsController::class, 'showOrCreate'])->name('campaign.details');
 });
 
 
