@@ -52,11 +52,12 @@ export const AdminDashboardTabsList = [
     },
     {
         id: crypto.randomUUID(),
-        path: "/admin/content-details",
+        path: "/admin/content-shows",
         icon: FaFileAlt,
         linkText: "Content Sections",
         roles: ["admin"],
     },
+
 
 
 ];
