@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Storage;
 class ContentController extends Controller
 {
 
+    public function index(){
+
+        $contentDetails = Content::all(); // Retrieve all content records from the database
+
+        return Inertia::render('Backend/contentDetails/Index', [
+            'siteDetails' => $contentDetails
+        ]);
+    }
 
 
     public function showOrCreate()
@@ -24,37 +32,8 @@ class ContentController extends Controller
         ]);
     }
 
-    // public function storeOrUpdate(Request $request)
-    // {
+    
 
-    //     $content = Content::first();
-
-    //     if (!$content) {
-    //         $content = new Content();
-    //     }
-
-    //     $content->hero_title = $request->hero_title;
-    //     $content->hero_description = $request->hero_description;
-    //     $content->card_text = $request->card_text; 
-    //     $content->card_btn = $request->card_btn; 
-
-    //     // Handle image uploads without deleting old ones if not provided
-    //     if ($request->hasFile('main_image')) {
-    //         if ($content->main_image) {
-    //             Storage::disk('public')->delete($content->main_image); // Delete old image
-    //         }
-    //         $content->main_image = $request->file('main_image')->store('images', 'public');
-    //     }
-
-
-    //     $content->save();
-
-    //     return redirect()->route('siteDetails.showOrCreate');
-
-
-
-
-    // }
     public function storeOrUpdate(Request $request)
     {
 

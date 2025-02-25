@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function () {
    // Route for updating site details
 // Route::put('/admin/site-details/{siteDetails}', [SiteDetailsController::class, 'update'])->name('site-details.update');
 
+Route::get('/admin/content-shows', [ContentController::class, 'index'])->name('contentDetails.index');
 Route::post('/admin/content-details', [ContentController::class, 'storeOrUpdate'])->name('contentDetails.storeOrUpdate');
 Route::get('/admin/content-details', [ContentController::class, 'showOrCreate'])->name('contentDetails.showOrCreate');
 
