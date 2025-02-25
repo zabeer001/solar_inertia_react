@@ -18,6 +18,19 @@ const EntryForm = ({ data }) => {
             [name]: value,
         }));
     };
+    const costPerSolarPanel =
+        form.target && form.no_solar_panels
+            ? (
+                  parseFloat(form.target) / parseFloat(form.no_solar_panels)
+              ).toFixed(2)
+            : "0.00";
+
+    const EnergySavedPerSolarPanel =
+        form.target && form.no_solar_panels
+            ? (
+                  parseFloat(form.target) / parseFloat(form.no_solar_panels)
+              ).toFixed(2)
+            : "0.00";
 
     // Submit the form data to store or update campaign
     const submitForm = async (e) => {
@@ -53,6 +66,17 @@ const EntryForm = ({ data }) => {
                         onChange={handleChange}
                         className="mt-1 p-3 w-full border border-gray-300 rounded-md"
                         required
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium">
+                        Cost Per Solar Panel
+                    </label>
+                    <input
+                        type="text"
+                        value={`$${costPerSolarPanel}`}
+                        className="mt-1 p-3 w-full border border-gray-300 rounded-md bg-gray-100"
+                        readOnly
                     />
                 </div>
                 <div>

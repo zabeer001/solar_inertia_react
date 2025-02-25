@@ -57,7 +57,11 @@ export const AdminDashboardTabsList = [
         linkText: "Content Sections",
         roles: ["admin"],
     },
-
-
-
+    {
+        id: crypto.randomUUID(),
+        path: "/admin/campaign-details",
+        icon: FaFileAlt,
+        linkText: "Campaign Sections",
+        roles: ["admin"],
+    },
 ];
