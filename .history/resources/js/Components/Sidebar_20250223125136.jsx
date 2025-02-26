@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useCallback, useMemo } from "react";
 import { CiMenuFries } from "react-icons/ci";
+import Navbar from "@/Layouts/Backend/Partials/Navbar";
 
 export function Sidebar({ lists }) {
     const pathname = window.location.pathname; // Replace usePathname from Next.js
@@ -14,6 +15,8 @@ export function Sidebar({ lists }) {
     const NavigationContent = useMemo(() => {
         return (
             <nav className="min-w-[272px] flex-1 px-10 backdrop-blur-lg ">
+                <Navbar />
+
                 {lists.map((item) => {
                     const Icon = item.icon;
 
