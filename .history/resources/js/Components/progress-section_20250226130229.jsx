@@ -30,10 +30,10 @@ export function ProgressSection() {
                         </div>
                         <Progress value={fundingProgress} className="h-2" />
                         <div className="flex justify-between text-sm text-gray-600 ">
+                            <span>${amountRaised.toLocaleString()} Raised</span>
                             <span className="text-green-600">
-                                ${amountRaised.toLocaleString()} Raised
+                                {Math.round(fundingProgress)}%
                             </span>
-                            <span>{Math.round(fundingProgress)}%</span>
                         </div>
                     </div>
                 </div>

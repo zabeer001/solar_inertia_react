@@ -29,10 +29,8 @@ export function ProgressSection() {
                             Total ${totalGoal.toLocaleString()}
                         </div>
                         <Progress value={fundingProgress} className="h-2" />
-                        <div className="flex justify-between text-sm text-gray-600 ">
-                            <span className="text-green-600">
-                                ${amountRaised.toLocaleString()} Raised
-                            </span>
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span>${amountRaised.toLocaleString()} Raised</span>
                             <span>{Math.round(fundingProgress)}%</span>
                         </div>
                     </div>

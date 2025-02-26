@@ -12,27 +12,25 @@ export function ProgressSection() {
 
     return (
         <section className=" border-t-[30px] border-green-600">
-            <div className="">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 ">
-                    <div className="h-full bg-green-100 p-16">
+            <div className="container">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-green-600">
+                    <div className="text-center h-full border-r-2  bg-green-100">
                         <div className="text-4xl font-bold">{totalPanels}</div>
                         <div className="text-gray-600">Total Panels</div>
                     </div>
-                    <div className="bg-green-100 p-16 *:text-green-600">
+                    <div className="text-center border-r-2  bg-green-100">
                         <div className="text-4xl font-bold ">
                             {remainingPanels}
                         </div>
                         <div className="text-gray-600">Panels Remaining</div>
                     </div>
-                    <div className="space-y-2 bg-green-100 p-16">
+                    <div className="space-y-2  bg-green-100">
                         <div className="text-xl font-semibold">
                             Total ${totalGoal.toLocaleString()}
                         </div>
                         <Progress value={fundingProgress} className="h-2" />
-                        <div className="flex justify-between text-sm text-gray-600 ">
-                            <span className="text-green-600">
-                                ${amountRaised.toLocaleString()} Raised
-                            </span>
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span>${amountRaised.toLocaleString()} Raised</span>
                             <span>{Math.round(fundingProgress)}%</span>
                         </div>
                     </div>
