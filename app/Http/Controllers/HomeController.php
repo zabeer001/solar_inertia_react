@@ -14,34 +14,21 @@ class HomeController extends Controller
      * Display a listing of the resource.
      */
 
-
-    public function index(): Response
-    {
-           // Paginate the SiteDetails (you can adjust the number of items per page)
-    $siteDetails = SiteDetails::paginate(10)->map(function ($site) {
-        // Define columns that need asset URLs
-        $imageColumns = [
-            'main_image',
-            'gallery_image_1',
-            'gallery_image_2',
-            'logo', // Add more image columns as needed
-        ];
-
-        // Dynamically generate full URLs for each image column
-        foreach ($imageColumns as $column) {
-            if ($site->$column) {
-                // Construct the asset URL for each image column
-                $site->{$column . '_url'} = asset('uploads/' . $site->$column);
-            }
-        }
-
-        return $site;
-    });
-
-    // dd($siteDetails);
-
-        return Inertia::render('Frontend/Home', compact('siteDetails'));
-    }
+     public function index(): Response
+     {
+         // Retrieve the first SiteDetails record
+         $siteDetails = SiteDetails::first();
+     
+         if ($siteDetails) {
+             $siteDetails->main_image_url = $siteDetails->main_image ? asset('storage/' . $siteDetails->main_image) : null;
+             $siteDetails->gallery_image_1_url = $siteDetails->gallery_image_1 ? asset('storage/' . $siteDetails->gallery_image_1) : null;
+             $siteDetails->gallery_image_2_url = $siteDetails->gallery_image_2 ? asset('storage/' . $siteDetails->gallery_image_2) : null;
+             $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
+         }
+     
+         return Inertia::render('Frontend/Home', compact('siteDetails'));
+     }
+     
 
     /**
      * Show the form for creating a new resource.
