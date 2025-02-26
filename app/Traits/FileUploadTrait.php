@@ -26,7 +26,7 @@ trait FileUploadTrait
                 File::delete(public_path($oldPath));
             }
 
-            return $path . '/' . $imageName;
+            return $imageName;
         }
 
         return NULL;
