@@ -19,7 +19,7 @@ function CreateOrEdit({ contentDetail }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route("contentDetails.storeOrUpdate"));
+    post(route("contents.store"));
   };
 
   return (

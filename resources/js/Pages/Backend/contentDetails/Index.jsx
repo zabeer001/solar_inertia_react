@@ -17,7 +17,7 @@ function Index({ siteDetails }) {
     return (
         <div>
             <h1>Content Details</h1>
-
+            
             <table className="table table-bordered">
                 <thead>
                     <tr>
