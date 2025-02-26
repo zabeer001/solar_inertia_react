@@ -10,7 +10,7 @@ import { GrGallery } from "react-icons/gr";
 export const AdminDashboardTabsList = [
     {
         id: crypto.randomUUID(),
-        path: "/dashboard/",
+        path: "/admin/dashboard/",
         icon: MdOutlineDashboard,
         linkText: "Dashboard",
         roles: ["admin"],
@@ -52,7 +52,7 @@ export const AdminDashboardTabsList = [
     },
     {
         id: crypto.randomUUID(),
-        path: "/admin/content-shows",
+        path: "/contents",
         icon: FaFileAlt,
         linkText: "Content Sections",
         roles: ["admin"],

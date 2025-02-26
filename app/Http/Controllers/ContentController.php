@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use App\Models\Content;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use App\Traits\FileUploadTrait;
 
 class ContentController extends Controller
 {
-
-    public function index(){
-
+    use FileUploadTrait;
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
         $contentDetails = Content::all(); // Retrieve all content records from the database
 
         return Inertia::render('Backend/contentDetails/Index', [
@@ -19,47 +24,112 @@ class ContentController extends Controller
         ]);
     }
 
-
-    public function showOrCreate()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $contentSection = Content::first();
-        if ($contentSection) {
-            $contentSection->icon_image_url = $contentSection->icon_image ? asset('storage/' . $contentSection->icon_image) : null;
-        }
-
-        return Inertia::render('Backend/contentDetails/CreateOrEdit', [
-            'contentDetail' => $contentSection,
-        ]);
+        
+        return Inertia::render('Backend/contentDetails/Create');
     }
 
-    
-
-    public function storeOrUpdate(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-
         // dd($request->all());
+        $validatedData = $request->validate([
+            'content_title' => 'required|string|max:255',
+            'content_description' => 'required|string',
+            'icon_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-        $content = Content::first();
+        $content = new Content();
+        $imagePath = $this->uploadImage($request, 'icon_image');
 
-        if (!$content) {
-            $content = new Content();
-        }
+        $content->content_title = $validatedData['content_title'];
+        $content->content_description = $validatedData['content_description'];
+        $content->icon_image = $imagePath;
 
-        // Update or create new content with the provided values
-        $content->content_title = $request->content_title;
-        $content->content_description = $request->content_description;
 
-        // Handle icon image upload without deleting the old one if not provided
-        if ($request->hasFile('icon_image')) {
-            if ($content->icon_image) {
-                Storage::disk('public')->delete($content->icon_image); // Delete old icon image
-            }
-            $content->icon_image = $request->file('icon_image')->store('images', 'public');
-        }
-
-        // Save content
         $content->save();
 
-        return redirect()->route('contentDetails.showOrCreate');
+        return redirect()->route('contents.index');
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $content = Content::findOrFail($id);
+        
+        return Inertia::render('Backend/contentDetails/Edit', [
+            'contentDetail' => $content
+        ]);
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'content_title' => 'required|string|max:255',
+            'content_description' => 'required|string',
+            'icon_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $content = Content::findOrFail($id);
+        $imagePath = $this->uploadImage($request, 'icon_image', $content->icon_image);
+
+        $content->content_title = $validatedData['content_title'];
+        $content->content_description = $validatedData['content_description'];
+        $content->icon_image = $imagePath ?? $content->icon_image;
+        $content->save();
+
+        return Inertia::render('Backend/contentDetails/Index', [
+            'siteDetails' => $content
+        ]);
+
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        try {
+            $content = Content::findOrFail($id);
+    
+            // Check if the image exists in the 'uploads' folder and delete it
+            if ($content->icon_image && Storage::exists('uploads/' . $content->icon_image)) {
+                Storage::delete('uploads/' . $content->icon_image);
+            }
+    
+            // Delete the content record
+            $content->delete();
+    
+            return redirect()->route('contents.index')->with('success', 'Content deleted successfully!');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('contents.index')->with('error', 'Content not found!');
+        } catch (\Exception $e) {
+            \Log::error('Error deleting content: ' . $e->getMessage());
+            return redirect()->route('contents.index')->with('error', 'An unexpected error occurred!');
+        }
+    }
+    
+    
 }
