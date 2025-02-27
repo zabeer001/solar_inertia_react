@@ -28,7 +28,8 @@ const EntryForm = ({ data }) => {
     const EnergySavedPerSolarPanel =
         form.target && form.no_solar_panels
             ? (
-                  parseFloat(form.energy_saved) / parseFloat(form.no_solar_panels)
+                  parseFloat(form.energy_saved) /
+                  parseFloat(form.no_solar_panels)
               ).toFixed(2)
             : "0.00";
 
@@ -39,78 +40,82 @@ const EntryForm = ({ data }) => {
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6">
-            <h1 className="text-3xl font-semibold text-center mb-6">
-                {data ? "Update Campaign Details" : "Add Campaign Details"}
-            </h1>
-            <form onSubmit={submitForm} className="space-y-6">
-                <div>
-                    <label className="block text-sm font-medium">Target</label>
-                    <input
-                        type="number"
-                        name="target"
-                        value={form.target}
-                        onChange={handleChange}
-                        className="mt-1 p-3 w-full border border-gray-300 rounded-md"
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">
-                        Number of Solar Panels
-                    </label>
-                    <input
-                        type="number"
-                        name="no_solar_panels"
-                        value={form.no_solar_panels}
-                        onChange={handleChange}
-                        className="mt-1 p-3 w-full border border-gray-300 rounded-md"
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">
-                        Cost Per Solar Panel
-                    </label>
-                    <input
-                        type="text"
-                        value={`$${costPerSolarPanel}`}
-                        className="mt-1 p-3 w-full border border-gray-300 rounded-md bg-gray-100"
-                        readOnly
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">
-                        Energy Saved
-                    </label>
-                    <input
-                        type="number"
-                        name="energy_saved"
-                        value={form.energy_saved}
-                        onChange={handleChange}
-                        className="mt-1 p-3 w-full border border-gray-300 rounded-md"
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">
-                        Lifetime Saving Per Solar Panel
-                    </label>
-                    <input
-                        type="text"
-                        value={`$${EnergySavedPerSolarPanel}`}
-                        className="mt-1 p-3 w-full border border-gray-300 rounded-md bg-gray-100"
-                        readOnly
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700"
-                >
-                    {data ? "Update Campaign" : "Save Campaign"}
-                </button>
-            </form>
-        </div>
+        <section className="bg-white h-full my-6 rounded-lg shadow-lg flex items-center justify-center">
+            <div className="max-w-lg mx-auto p-6">
+                <h1 className="text-3xl font-semibold text-center mb-6">
+                    {data ? "Update Campaign Details" : "Add Campaign Details"}
+                </h1>
+                <form onSubmit={submitForm} className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-medium">
+                            Target
+                        </label>
+                        <input
+                            type="number"
+                            name="target"
+                            value={form.target}
+                            onChange={handleChange}
+                            className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">
+                            Number of Solar Panels
+                        </label>
+                        <input
+                            type="number"
+                            name="no_solar_panels"
+                            value={form.no_solar_panels}
+                            onChange={handleChange}
+                            className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">
+                            Cost Per Solar Panel
+                        </label>
+                        <input
+                            type="text"
+                            value={`$${costPerSolarPanel}`}
+                            className="mt-1 p-3 w-full border border-gray-300 rounded-md bg-gray-100"
+                            readOnly
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">
+                            Energy Saved
+                        </label>
+                        <input
+                            type="number"
+                            name="energy_saved"
+                            value={form.energy_saved}
+                            onChange={handleChange}
+                            className="mt-1 p-3 w-full border border-gray-300 rounded-md"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium">
+                            Lifetime Saving Per Solar Panel
+                        </label>
+                        <input
+                            type="text"
+                            value={`$${EnergySavedPerSolarPanel}`}
+                            className="mt-1 p-3 w-full border border-gray-300 rounded-md bg-gray-100"
+                            readOnly
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700"
+                    >
+                        {data ? "Update Campaign" : "Save Campaign"}
+                    </button>
+                </form>
+            </div>
+        </section>
     );
 };
 

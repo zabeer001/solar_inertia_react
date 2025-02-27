@@ -30,10 +30,10 @@ function Index({ siteDetails }) {
     };
 
     return (
-        <div>
-            <h2>
+        <div className="my-6 bg-white rounded-lg shadow-lg p-6">
+            {/* <h2>
                 <strong>Content Details</strong>
-            </h2>
+            </h2> */}
 
             <div className="flex justify-end">
                 <button

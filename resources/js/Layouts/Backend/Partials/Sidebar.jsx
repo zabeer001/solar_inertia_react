@@ -41,8 +41,8 @@ export function Sidebar({ lists }) {
                             className={`group relative my-4 mb-1 flex items-center gap-3 rounded-md px-4 py-3 transition-all backdrop-blur-md
                           ${
                               isActive
-                                  ? "bg-gradient text-black border-r-2"
-                                  : "text-black hover:bg-gradient hover:text-blue-600"
+                                  ? " bg-blue-500 text-white border-r-2"
+                                  : "text-black hover:bg-blue-500 hover:text-blue-600"
                           }
                         `}
                         >
@@ -50,7 +50,7 @@ export function Sidebar({ lists }) {
                             <Icon className="h-5 w-5 transition-colors group-hover:text-blue-600" />
 
                             {/* Link Text */}
-                            <span className="font-inter text-sm font-medium leading-[20.3px] transition-colors group-hover:text-blue-600">
+                            <span className="font-inter text-sm font-medium leading-[20.3px] transition-colors group-hover:text-blue-100">
                                 {item.linkText}
                             </span>
 

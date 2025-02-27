@@ -14,13 +14,8 @@ function CreateOrEdit({ siteDetail }) {
     card_btn: siteDetail?.card_btn || '',
   });
 
-  const handleChange = (e) => {
-    setData(e.target.name, e.target.value);
-  };
-
-  const handleFileChange = (e) => {
-    setData(e.target.name, e.target.files[0]);
-  };
+  const handleChange = (e) => setData(e.target.name, e.target.value);
+  const handleFileChange = (e) => setData(e.target.name, e.target.files[0]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,66 +23,62 @@ function CreateOrEdit({ siteDetail }) {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">
+    <div className=" mx-auto bg-white p-8 my-8 rounded-lg shadow-lg border">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">
         {siteDetail ? "Edit Site Details" : "Create Site Details"}
       </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded shadow" encType="multipart/form-data">
-        <div>
-          <label className="block font-semibold">Hero Title:</label>
-          <input type="text" name="hero_title" value={data.hero_title} onChange={handleChange} className="w-full p-2 border rounded" />
-          {errors.hero_title && <span className="text-red-500">{errors.hero_title}</span>}
+      <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Hero Title */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Hero Title</label>
+            <input type="text" name="hero_title" value={data.hero_title} onChange={handleChange} className="w-full p-3 border rounded focus:ring focus:ring-blue-300" />
+            {errors.hero_title && <span className="text-red-500 text-sm">{errors.hero_title}</span>}
+          </div>
+
+          {/* Hero Description */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Hero Description</label>
+            <textarea name="hero_description" value={data.hero_description} onChange={handleChange} className="w-full p-3 border rounded focus:ring focus:ring-blue-300"></textarea>
+            {errors.hero_description && <span className="text-red-500 text-sm">{errors.hero_description}</span>}
+          </div>
+
+          {/* Card Text */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Card Text</label>
+            <input type="text" name="card_text" value={data.card_text} onChange={handleChange} className="w-full p-3 border rounded focus:ring focus:ring-blue-300" />
+            {errors.card_text && <span className="text-red-500 text-sm">{errors.card_text}</span>}
+          </div>
+
+          {/* Card Button */}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Card Button</label>
+            <input type="text" name="card_btn" value={data.card_btn} onChange={handleChange} className="w-full p-3 border rounded focus:ring focus:ring-blue-300" />
+            {errors.card_btn && <span className="text-red-500 text-sm">{errors.card_btn}</span>}
+          </div>
         </div>
 
-        <div>
-          <label className="block font-semibold">Hero Description:</label>
-          <textarea name="hero_description" value={data.hero_description} onChange={handleChange} className="w-full p-2 border rounded" />
-          {errors.hero_description && <span className="text-red-500">{errors.hero_description}</span>}
+        {/* File Uploads */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            { name: "main_image", label: "Main Image", url: siteDetail?.main_image_url },
+            { name: "gallery_image_1", label: "Gallery Image 1", url: siteDetail?.gallery_image_1_url },
+            { name: "gallery_image_2", label: "Gallery Image 2", url: siteDetail?.gallery_image_2_url },
+            { name: "logo", label: "Logo", url: siteDetail?.logo_url }
+          ].map(({ name, label, url }) => (
+            <div key={name} className="flex flex-col">
+              <label className="block text-gray-700 font-medium mb-1">{label}</label>
+              <input type="file" name={name} onChange={handleFileChange} className="w-full p-2 border rounded focus:ring focus:ring-blue-300" />
+              {errors[name] && <span className="text-red-500 text-sm">{errors[name]}</span>}
+              {url && <img src={url} alt={`${label} Preview`} className="w-24 h-24 object-cover mt-2 border rounded shadow-sm" />}
+            </div>
+          ))}
         </div>
 
-        <div>
-          <label className="block font-semibold">Card Text:</label>
-          <input type="text" name="card_text" value={data.card_text} onChange={handleChange} className="w-full p-2 border rounded" />
-          {errors.card_text && <span className="text-red-500">{errors.card_text}</span>}
-        </div>
-
-        <div>
-          <label className="block font-semibold">Card Button:</label>
-          <input type="text" name="card_btn" value={data.card_btn} onChange={handleChange} className="w-full p-2 border rounded" />
-          {errors.card_btn && <span className="text-red-500">{errors.card_btn}</span>}
-        </div>
-
-        <div>
-          <label className="block font-semibold">Main Image:</label>
-          <input type="file" name="main_image" onChange={handleFileChange} className="w-full p-2 border rounded" />
-          {errors.main_image && <span className="text-red-500">{errors.main_image}</span>}
-          {siteDetail?.main_image_url && <img src={siteDetail.main_image_url} alt="Main Image Preview" className="w-20 mt-2" />}
-        </div>
-
-        <div>
-          <label className="block font-semibold">Gallery Image 1:</label>
-          <input type="file" name="gallery_image_1" onChange={handleFileChange} className="w-full p-2 border rounded" />
-          {errors.gallery_image_1 && <span className="text-red-500">{errors.gallery_image_1}</span>}
-          {siteDetail?.gallery_image_1_url && <img src={siteDetail.gallery_image_1_url} alt="Gallery Image 1 Preview" className="w-20 mt-2" />}
-        </div>
-
-        <div>
-          <label className="block font-semibold">Gallery Image 2:</label>
-          <input type="file" name="gallery_image_2" onChange={handleFileChange} className="w-full p-2 border rounded" />
-          {errors.gallery_image_2 && <span className="text-red-500">{errors.gallery_image_2}</span>}
-          {siteDetail?.gallery_image_2_url && <img src={siteDetail.gallery_image_2_url} alt="Gallery Image 2 Preview" className="w-20 mt-2" />}
-        </div>
-
-        <div>
-          <label className="block font-semibold">Logo:</label>
-          <input type="file" name="logo" onChange={handleFileChange} className="w-full p-2 border rounded" />
-          {errors.logo && <span className="text-red-500">{errors.logo}</span>}
-          {siteDetail?.logo_url && <img src={siteDetail.logo_url} alt="Logo Preview" className="w-20 mt-2" />}
-        </div>
-
-        <div>
-          <button type="submit" disabled={processing} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+        {/* Submit Button */}
+        <div className="flex justify-end">
+          <button type="submit" disabled={processing} className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition-all disabled:opacity-50">
             {processing ? "Saving..." : "Save"}
           </button>
         </div>

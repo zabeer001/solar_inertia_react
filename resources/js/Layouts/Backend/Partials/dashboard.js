@@ -8,7 +8,7 @@ import { FaFileAlt } from "react-icons/fa";
 export const AdminDashboardTabsList = [
     {
         id: crypto.randomUUID(),
-        path: "/dashboard/",
+        path: "/admin/dashboard/",
         icon: MdOutlineDashboard,
         linkText: "Dashboard",
         roles: ["admin"],
