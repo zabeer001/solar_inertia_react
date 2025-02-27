@@ -12,13 +12,13 @@ class SalesTrackedController extends Controller
     public function index()
     {
         $sales = SalesTracked::all(); // You can add pagination if needed
-        return Inertia::render('SalesTracked/Index', ['sales' => $sales]);
+        return Inertia::render('Backend/SalesTracked/Index', ['sales' => $sales]);
     }
 
     // Show the form to create new sales entry
     public function create()
     {
-        return Inertia::render('SalesTracked/Create');
+        return Inertia::render('Backend/SalesTracked/Create');
     }
 
     // Store a new sales entry
@@ -45,7 +45,7 @@ class SalesTrackedController extends Controller
     // Show the form to edit an existing sales entry
     public function edit(SalesTracked $salesTracked)
     {
-        return Inertia::render('SalesTracked/Edit', ['salesTracked' => $salesTracked]);
+        return Inertia::render('Backend/SalesTracked/SalesTrackedEdit', ['salesTracked' => $salesTracked]);
     }
 
     // Update an existing sales entry
