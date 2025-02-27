@@ -3,11 +3,8 @@ import { usePage } from "@inertiajs/react";
 import React from "react";
 export function Hero() {
     const { props } = usePage();
-    console.log('gallery images');
-    
-
-    console.log(props.siteDetails.main_image_url);
-  
+    const heroImg = props.siteDetails[0].main_image_url;
+    console.log(heroImg);
 
     return (
         <section className="relative h-[75vh] w-screen">
@@ -36,7 +33,6 @@ export function Hero() {
                     entire community.
                 </p>
             </div>
-            <ProgressSection/>
         </section>
     );
 }
