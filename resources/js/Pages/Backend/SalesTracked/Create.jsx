@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import BackendLayout from "@/Layouts/Backend/BackendLayout";
 
 const SalesTrackedCreate = () => {
     const [formData, setFormData] = useState({
@@ -134,5 +135,7 @@ const SalesTrackedCreate = () => {
         </div>
     );
 };
+
+SalesTrackedCreate.layout = (page) => <BackendLayout>{page}</BackendLayout>;
 
 export default SalesTrackedCreate;
