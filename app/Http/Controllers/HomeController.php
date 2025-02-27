@@ -28,7 +28,7 @@ class HomeController extends Controller
              $siteDetails->gallery_image_2_url = $siteDetails->gallery_image_2 ? asset('storage/' . $siteDetails->gallery_image_2) : null;
              $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
          }
-         $homePageContent = Content::all();
+         $homePageContents = Content::all();
      
          return Inertia::render('Frontend/Home', compact('siteDetails','campaignDetails'));
      }
