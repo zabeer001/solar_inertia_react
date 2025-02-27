@@ -3,15 +3,18 @@ import { usePage } from "@inertiajs/react";
 import React from "react";
 export function Hero() {
     const { props } = usePage();
-    const heroImg = props.siteDetails[0].main_image_url;
-    console.log(props);
+    console.log('gallery images');
+    
+
+    console.log(props.siteDetails.main_image_url);
+  
 
     return (
         <section className="relative h-[75vh] w-screen">
             <div
                 className="absolute object-cover bg-center h-full w-screen"
                 style={{
-                    backgroundImage: `url(${heroImg})`,
+                    backgroundImage: `url(${props.siteDetails.main_image_url})`,
                 }}
             >
                 <div className="absolute inset-0 bg-black/60" />

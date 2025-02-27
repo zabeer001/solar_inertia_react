@@ -15,16 +15,16 @@ export const AdminDashboardTabsList = [
     },
     {
         id: crypto.randomUUID(),
-        path: "/dashboard/upload-images",
+        path: "/admin/site-details",
         icon: CiImageOn,
-        linkText: "Upload Images",
+        linkText: "Site Deatils",
         roles: ["admin"],
     },
     {
         id: crypto.randomUUID(),
-        path: "/dashboard/manage-targets",
+        path: "/sales-tracked",
         icon: TbTargetArrow,
-        linkText: "Manage Targets",
+        linkText: "Sales Tracked",
         roles: ["admin"],
     },
     {
