@@ -36,9 +36,9 @@ export const AdminDashboardTabsList = [
     },
     {
         id: crypto.randomUUID(),
-        path: "/dashboard/create-arv-target",
+        path: "/admin/campaign-details",
         icon: FaFileAlt,
-        linkText: "Create ARV Target",
+        linkText: "Campaign",
         roles: ["admin"],
     },
 ];

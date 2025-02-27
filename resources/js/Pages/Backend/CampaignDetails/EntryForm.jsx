@@ -28,7 +28,7 @@ const EntryForm = ({ data }) => {
     const EnergySavedPerSolarPanel =
         form.target && form.no_solar_panels
             ? (
-                  parseFloat(form.target) / parseFloat(form.no_solar_panels)
+                  parseFloat(form.energy_saved) / parseFloat(form.no_solar_panels)
               ).toFixed(2)
             : "0.00";
 
@@ -90,6 +90,17 @@ const EntryForm = ({ data }) => {
                         onChange={handleChange}
                         className="mt-1 p-3 w-full border border-gray-300 rounded-md"
                         required
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium">
+                        Lifetime Saving Per Solar Panel
+                    </label>
+                    <input
+                        type="text"
+                        value={`$${EnergySavedPerSolarPanel}`}
+                        className="mt-1 p-3 w-full border border-gray-300 rounded-md bg-gray-100"
+                        readOnly
                     />
                 </div>
                 <button
