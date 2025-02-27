@@ -60,10 +60,10 @@ function Index({ siteDetails }) {
                                 {site.icon_image && (
                                     <img
                                         src={`/uploads/${site.icon_image}`}
-                                        // height={"50px"}
+                                        height="50"
                                         alt={"Icon Image"}
                                         width="100"
-                                        className="rounded-md"
+                                        className="w-[150px] h-[75px] rounded-md"
                                     />
                                 )}
                             </TableCell>

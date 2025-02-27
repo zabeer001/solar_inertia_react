@@ -73,6 +73,10 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
 
+        if ($content) {
+            $content->icon_image_url = $content->icon_image ? asset('uploads/' . $content->icon_image) : null;
+        }
+
         return Inertia::render('Backend/contentDetails/Edit', [
             'contentDetail' => $content
         ]);
@@ -83,30 +87,36 @@ class ContentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
+
+        dd($request->all());
         // Validate input
         $validatedData = $request->validate([
-            'content_title' => 'required|string|max:255',
-            'content_description' => 'required|string',
+            'content_title' => 'nullable|string|max:255',
+            'content_description' => 'nullable|string',
             'icon_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         // Find the content by ID
         $content = Content::findOrFail($id);
     
+        // Handle image upload (if a new file is provided)
+        if ($request->hasFile('icon_image')) {
+            $imagePath = $this->uploadImage($request, 'icon_image', $request->file('icon_image'));
+        } else {
+            $imagePath = $content->icon_image; // Keep existing image
+        }
+    
         // Update content details
-        $content->content_title = $validatedData['content_title'];
-        $content->content_description = $validatedData['content_description'];
+        $content->update([
+            'content_title' => $validatedData['content_title'],
+            'content_description' => $validatedData['content_description'],
+            'icon_image' => $imagePath,
+        ]);
     
-        $imagePath = $this->uploadImage($request, 'icon_image', $request->icon_image);
-        $content->icon_image = !empty($imagePath) ? $imagePath : $request->icon_image;
-    
-        // Save changes
-        $content->save();
-    
-        // Redirect or return response
-        return redirect()->route('contents.index');
+        // Redirect with success message
+        return redirect()->route('contents.index')->with('success', 'Content updated successfully');
     }
+    
     
 
     /**
