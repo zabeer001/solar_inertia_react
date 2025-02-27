@@ -9,15 +9,13 @@ function Edit() {
   const { data, setData, post, processing, errors } = useForm({
     content_title: contentDetail.content_title || "",
     content_description: contentDetail.content_description || "",
+    id: contentDetail.id,
     icon_image: null,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('content.update', contentDetail.id), {
-      data,
-      _method: 'PUT', // Required for Laravel resource update
-    });
+    post(route('contents.update'));
   };
 
   return (
@@ -26,9 +24,9 @@ function Edit() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Title:</label>
-          <input 
-            type="text" 
-            value={data.content_title} 
+          <input
+            type="text"
+            value={data.content_title}
             onChange={(e) => setData("content_title", e.target.value)}
           />
           {errors.content_title && <p>{errors.content_title}</p>}
@@ -36,8 +34,8 @@ function Edit() {
 
         <div>
           <label>Description:</label>
-          <textarea 
-            value={data.content_description} 
+          <textarea
+            value={data.content_description}
             onChange={(e) => setData("content_description", e.target.value)}
           />
           {errors.content_description && <p>{errors.content_description}</p>}
@@ -45,8 +43,8 @@ function Edit() {
 
         <div>
           <label>Icon Image:</label>
-          <input 
-            type="file" 
+          <input
+            type="file"
             onChange={(e) => setData("icon_image", e.target.files[0])}
           />
           {errors.icon_image && <p>{errors.icon_image}</p>}

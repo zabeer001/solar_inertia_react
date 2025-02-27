@@ -3,6 +3,7 @@ import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-react";
 import BackendLayout from "@/Layouts/Backend/BackendLayout";
 
+
 const SalesTrackedIndex = ({ sales }) => {
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this entry?")) {

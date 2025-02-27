@@ -19,7 +19,13 @@ Route::middleware('auth')->group(function () {
 // Route::post('/admin/content-details', [ContentController::class, 'storeOrUpdate'])->name('contentDetails.storeOrUpdate');
 // Route::get('/admin/content-details', [ContentController::class, 'showOrCreate'])->name('contentDetails.showOrCreate');
 
-Route::resource('admin/contents', ContentController::class);
+Route::get('admin/contents', [ContentController::class, 'index'])->name('contents.index');
+Route::get('admin/contents/create', [ContentController::class, 'create'])->name('contents.create');
+Route::post('admin/contents', [ContentController::class, 'store'])->name('contents.store');
+Route::get('admin/contents/{content}', [ContentController::class, 'show'])->name('contents.show');
+Route::get('admin/contents/{content}/edit', [ContentController::class, 'edit'])->name('contents.edit');
+Route::post('admin/contents/update', [ContentController::class, 'update'])->name('contents.update');
+Route::delete('admin/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy');
 
 
 });
