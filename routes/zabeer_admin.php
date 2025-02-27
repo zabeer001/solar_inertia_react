@@ -28,5 +28,6 @@ Route::post('admin/contents/update', [ContentController::class, 'update'])->name
 Route::delete('admin/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy');
 
 
+
 });
 

@@ -24,4 +24,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Delete a sales entry
     Route::delete('/sales-tracked/{salesTracked}', [SalesTrackedController::class, 'destroy'])->name('sales_tracked.destroy');
+
+
+    Route::get('/sales-tracked/search', [SalesTrackedController::class, 'search'])->name('sales_tracked.search');
+
 });

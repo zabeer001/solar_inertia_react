@@ -11,9 +11,30 @@ class SalesTrackedController extends Controller
     // Show all sales tracked data
     public function index()
     {
-        $sales = SalesTracked::all(); // You can add pagination if needed
+        $sales = SalesTracked::paginate(10); // Fetch 10 records per page
         return Inertia::render('SalesTracked/Index', ['sales' => $sales]);
     }
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        // Query the sales table with the search term
+        $sales = SalesTracked::query()
+            ->where('f_name', 'LIKE', "%{$search}%")
+            ->orWhere('l_name', 'LIKE', "%{$search}%")
+            ->orWhere('panels_purchased', 'LIKE', "%{$search}%")
+            ->orWhere('country', 'LIKE', "%{$search}%")
+            ->orWhere('phone', 'LIKE', "%{$search}%")
+            ->orWhere('email', 'LIKE', "%{$search}%")
+            ->paginate(10); // Adjust the pagination as needed
+            
+
+        return Inertia::render('Backend/SalesTracked/Index', [
+            'sales' => $sales,
+        ]);
+    }
+    
+    
 
     // Show the form to create new sales entry
     public function create()
@@ -75,5 +96,7 @@ class SalesTrackedController extends Controller
         $salesTracked->delete();
         return redirect()->route('sales_tracked.index');
     }
+
+    
 }
 

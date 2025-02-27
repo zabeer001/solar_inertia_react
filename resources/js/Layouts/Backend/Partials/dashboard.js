@@ -29,9 +29,9 @@ export const AdminDashboardTabsList = [
     },
     {
         id: crypto.randomUUID(),
-        path: "/dashboard/create-tmc-target",
+        path: "/admin/contents",
         icon: FaFileMedical,
-        linkText: "Create TMC Target",
+        linkText: "Contents",
         roles: ["admin"],
     },
     {
