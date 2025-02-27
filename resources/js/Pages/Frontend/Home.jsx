@@ -9,7 +9,6 @@ import { ProgressStats } from "@/Components/progress-stats";
 
 const Home = () => {
     const { props } = usePage();
-    console.log(props);
 
     return (
         <div>

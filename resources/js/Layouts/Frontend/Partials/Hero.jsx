@@ -3,7 +3,9 @@ import { usePage } from "@inertiajs/react";
 import React from "react";
 export function Hero() {
     const { props } = usePage();
-    const heroImg = props.siteDetails[0].main_image_url;
+    console.log(props);
+    
+    const heroImg = props.siteDetails.main_image_url;
     console.log(heroImg);
 
     return (
