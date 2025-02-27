@@ -2,7 +2,7 @@ import { Link, usePage } from "@inertiajs/react";
 
 export function Header() {
     const { props } = usePage();
-    const logo = props.siteDetails[0].logo_url;
+    const logo = props.siteDetails.logo_url;
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-green-600">
             <div className="container mx-auto px-4  flex items-center justify-between">
