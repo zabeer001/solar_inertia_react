@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // Call the SiteDetailsSeeder
         $this->call([
             SiteDetailsSeeder::class,
+            CampaignDetailsSeeder::class,
         ]);
     }
 }

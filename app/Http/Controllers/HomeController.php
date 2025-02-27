@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CampaignDetails;
 use App\Models\Home;
 use App\Models\SiteDetails;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class HomeController extends Controller
      {
          // Retrieve the first SiteDetails record
          $siteDetails = SiteDetails::first();
+         $campaignDetails = CampaignDetails::first();
      
          if ($siteDetails) {
              $siteDetails->main_image_url = $siteDetails->main_image ? asset('storage/' . $siteDetails->main_image) : null;
@@ -26,7 +28,7 @@ class HomeController extends Controller
              $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
          }
      
-         return Inertia::render('Frontend/Home', compact('siteDetails'));
+         return Inertia::render('Frontend/Home', compact('siteDetails','campaignDetails'));
      }
      
 

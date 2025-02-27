@@ -10,10 +10,10 @@ class SiteDetailsSeeder extends Seeder
     public function run(): void
     {
         SiteDetails::create([
-            'main_image' => 'main.jpg',
-            'gallery_image_1' => 'gallery1.jpg',
-            'gallery_image_2' => 'gallery2.jpg',
-            'logo' => 'logo.png',
+            'main_image' => 'images/main.jpg',
+            'gallery_image_1' => 'images/gallery1.jpg',
+            'gallery_image_2' => 'images/gallery2.jpg',
+            'logo' => 'images/logo.png',
             'hero_title' => 'Welcome to Our Site',
             'hero_description' => 'This is a long description about our site and its services.',
             'card_text' => 'Discover More',
