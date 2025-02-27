@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 // Route::post('/admin/content-details', [ContentController::class, 'storeOrUpdate'])->name('contentDetails.storeOrUpdate');
 // Route::get('/admin/content-details', [ContentController::class, 'showOrCreate'])->name('contentDetails.showOrCreate');
 
-Route::resource('contents', ContentController::class);
+Route::resource('admin/contents', ContentController::class);
 
 
 });

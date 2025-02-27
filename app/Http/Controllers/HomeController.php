@@ -30,7 +30,7 @@ class HomeController extends Controller
          }
          $homePageContents = Content::all();
      
-         return Inertia::render('Frontend/Home', compact('siteDetails','campaignDetails'));
+         return Inertia::render('Frontend/Home', compact('siteDetails','campaignDetails','homePageContents'));
      }
      
 

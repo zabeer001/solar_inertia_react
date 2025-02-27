@@ -15,25 +15,13 @@ class BillingController extends Controller
      */
     public function index()
     {
-       $siteDetails = SiteDetails::paginate(10)->map(function ($site) {
-        // Define columns that need asset URLs
-        $imageColumns = [
-            'main_image',
-            'gallery_image_1',
-            'gallery_image_2',
-            'logo', // Add more image columns as needed
-        ];
-
-        // Dynamically generate full URLs for each image column
-        foreach ($imageColumns as $column) {
-            if ($site->$column) {
-                // Construct the asset URL for each image column
-                $site->{$column . '_url'} = asset('uploads/' . $site->$column);
-            }
+        $siteDetails = SiteDetails::first();
+        if ($siteDetails) {
+            $siteDetails->main_image_url = $siteDetails->main_image ? asset('storage/' . $siteDetails->main_image) : null;
+            $siteDetails->gallery_image_1_url = $siteDetails->gallery_image_1 ? asset('storage/' . $siteDetails->gallery_image_1) : null;
+            $siteDetails->gallery_image_2_url = $siteDetails->gallery_image_2 ? asset('storage/' . $siteDetails->gallery_image_2) : null;
+            $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
         }
-
-        return $site;
-    });
 
           return Inertia::render('Frontend/Billing',compact('siteDetails'));
     }
