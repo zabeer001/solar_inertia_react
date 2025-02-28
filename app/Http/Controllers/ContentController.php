@@ -27,7 +27,7 @@ class ContentController extends Controller
             foreach ($attributesToModify as $attribute) {
                 if ($item->{$attribute}) {
                     // Prefix the value with the full URL path
-                    $item->{$attribute} = url('storage/' . $item->{$attribute});
+                    $item->{$attribute} = url('uploads/' . $item->{$attribute});
                 }
             }
             return $item;
@@ -104,34 +104,52 @@ class ContentController extends Controller
      */
     public function update(Request $request)
     {
-
-        // dd($request);
-
-        // Validate input
+        // Validate the input
         $validatedData = $request->validate([
-            'content_title' => 'nullable|string|max:255',
-            'content_description' => 'nullable|string',
-            'icon_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'content_title' => 'required|string|max:255',
+            'content_description' => 'required|string',
+            'icon_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Make icon_image optional during update
         ]);
-
+    
+        // Find the content by ID (don't create a new content, just update the existing one)
         $content = Content::where('id', $request->id)->first();
-        $content->content_title = $request->content_title;
-        $content->content_description = $request->content_description;
-
+    
+        // Update the content title and description
+        $content->content_title = $validatedData['content_title'];
+        $content->content_description = $validatedData['content_description'];
+    
+        // Handle the image upload if a new image is provided
         if ($request->hasFile('icon_image')) {
-            $file = $request->file('icon_image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $image_path = $file->storeAs('content_images', $filename, 'public');
-            $content->icon_image = $image_path;
+            // Call the uploadImage method to store the new image and get the image path
+            $imagePath = $this->uploadImage($request, 'icon_image');
+            $content->icon_image = $imagePath;
         }
+    
+        // Save the updated content to the database
         $content->save();
-
-        //$image_url = asset('storage/content_images/' . $content->icon_image);
-
-
-        // Redirect with success message
+    
+        // Redirect with a success message (you can customize this)
         return redirect()->route('contents.index')->with('success', 'Content updated successfully');
     }
+    
+    
+
+    public function destroy(Content $content) 
+    {
+        try {
+            if ($content->image) {
+                $this->removeImage($content->image);
+            }
+    
+            $content->delete();
+    
+            return redirect()->back()->with('success', 'Deleted Successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
+    }
+    
+    
 
 
 

@@ -25,8 +25,14 @@ function Index({ siteDetails }) {
     };
 
     const handleDelete = (id) => {
-        // Implement delete functionality here
-        console.log(`Delete content with ID: ${id}`);
+        router.delete(route("contents.destroy", { content: id }), {
+            onSuccess: () => {
+                console.log(`Deleted content with ID: ${id}`);
+            },
+            onError: (errors) => {
+                console.error("Delete failed:", errors);
+            },
+        });
     };
 
     return (
@@ -48,15 +54,15 @@ function Index({ siteDetails }) {
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[150px]">Icon Image</TableHead>
-                        <TableHead>Content Title</TableHead>
-                        <TableHead>Content Description</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                        <TableHead className="w-[250px]">Content Title</TableHead>
+                        <TableHead className="w-[350px]">Content Description</TableHead>
+                        <TableHead className="text-right w-[150px]">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {siteDetails.map((site, index) => (
                         <TableRow key={index}>
-                            <TableCell>
+                            <TableCell className="w-[150px]">
                                 {site.icon_image && (
                                     <img
                                         src={`${site.icon_image}`}
@@ -67,11 +73,11 @@ function Index({ siteDetails }) {
                                     />
                                 )}
                             </TableCell>
-                            <TableCell className="font-medium">
+                            <TableCell className="font-medium w-[250px]">
                                 {site.content_title}
                             </TableCell>
-                            <TableCell>{site.content_description}</TableCell>
-                            <TableCell className="text-right">
+                            <TableCell className="w-[350px]">{site.content_description}</TableCell>
+                            <TableCell className="text-right w-[150px]">
                                 <button
                                     onClick={() => handleEdit(site.id)}
                                     className="btn btn-primary btn-sm mx-1"
