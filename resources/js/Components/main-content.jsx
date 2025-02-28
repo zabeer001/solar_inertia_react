@@ -4,9 +4,13 @@ import { HardHat, PenTool as Tool, BarChart3, PanelTop } from "lucide-react";
 import { Button } from "@/components/ui/button"; // Adjust path if needed
 import { Link } from "@inertiajs/inertia-react";
 
-export function MainContent() {
+export function MainContent({
+    content
+}) {
     const [selectedPanels, setSelectedPanels] = useState(null);
     const [customQuantity, setCustomQuantity] = useState("");
+
+    // const { props } = usePage();
 
     const handleDonate = (panels) => {
         setSelectedPanels(panels);
@@ -28,37 +32,17 @@ export function MainContent() {
             <div className="grid md:grid-cols-2 gap-16">
                 {/* Left Side - Information */}
                 <div className="space-y-8">
-                    {[
-                        {
-                            Icon: HardHat,
-                            title: "Community Powered:",
-                            text: "What better way to fuel our growth and create lasting change than by coming together with our alumni, families, and friends? Your generosity can turn this dream into reality—saving our school money and making a positive impact on the environment for generations to come. Every contribution, no matter the size, brings us one step closer to building a brighter, more sustainable future.",
-                        },
-                        {
-                            Icon: Tool,
-                            title: "160 kW Solar Power System:",
-                            text: "Our cutting-edge solar installation, featuring 280 high-efficiency solar panels, is designed to harness the sun's power effectively, generating over 206 MWh of clean energy annually. Included in the system's design and planning phase, the School District has been able to maximize the number of financial solar incentives available for the project.",
-                        },
-                        {
-                            Icon: BarChart3,
-                            title: "Solar Savings:",
-                            text: "Adding solar to the facility will save the school district approximately $120,000 annually in utility costs by covering 70% of their power needs from the solar array. This will allow the school to invest in other improvements and new team members.",
-                        },
-                        {
-                            Icon: PanelTop,
-                            title: "Environmental Impact:",
-                            text: "With this solar installation, we're offsetting 190 tons of CO2 annually—equivalent to removing 41 cars from the road and powering 90 homes each year. This impact is also comparable to planting 3,159 trees annually, contributing to a healthier planet.",
-                        },
-                    ].map(({ Icon, title, text }) => (
-                        <div key={title} className="flex gap-4">
+                    {content.map(({ icon_image, content_title, content_description }) => (
+                        <div key={content_title} className="flex gap-4">
                             <div className="flex-shrink-0">
                                 <div className="w-12 h-12 rounded-full bg-[#F1F8E9] flex items-center justify-center">
-                                    <Icon className="w-6 h-6 text-[#4CAF50]" />
+                                    {/* <Icon className="w-6 h-6 text-[#4CAF50]" /> */}
+                                    <img src={`/uploads/${icon_image}`} alt={icon_image} className="rounded-full h-10 w-10" />
                                 </div>
                             </div>
                             <div>
-                                <h3 className="font-bold mb-2">{title}</h3>
-                                <p className="text-gray-600">{text}</p>
+                                <h3 className="font-bold mb-2">{content_title}</h3>
+                                <p className="text-gray-600">{content_description}</p>
                             </div>
                         </div>
                     ))}
