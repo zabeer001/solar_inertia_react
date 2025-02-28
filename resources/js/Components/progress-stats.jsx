@@ -1,7 +1,13 @@
 import React from "react";
 import { Progress } from "../components/ui/progress"; // Adjust the path as needed
+import { usePage } from "@inertiajs/react";
 
 export function ProgressStats() {
+    const { props } = usePage();
+    const campaignDetails = props.campaignDetails;
+    console.log("campaign Details", props);
+    
+    
     return (
         <section className="bg-[#F1F8E9] py-8">
             <div className="container mx-auto px-4 grid grid-cols-3 gap-8">
@@ -20,7 +26,9 @@ export function ProgressStats() {
                             <path d="M6 16h12" />
                         </svg>
                     </div>
-                    <div className="text-4xl font-bold">2727</div>
+                    <div className="text-4xl font-bold">
+                        {campaignDetails.no_solar_panels}
+                    </div>
                     <div className="text-gray-600">Total Panels</div>
                 </div>
                 <div className="text-center">
@@ -43,7 +51,7 @@ export function ProgressStats() {
                 </div>
                 <div>
                     <div className="text-xl font-semibold mb-2">
-                        Total $1,500,000
+                        Total {campaignDetails.target}
                     </div>
                     <Progress value={68} className="h-2 bg-white" />
                     <div className="flex justify-between text-sm mt-1">

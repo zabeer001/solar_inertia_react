@@ -6,11 +6,11 @@ import { MainContent } from "@/Components/main-content";
 const Home = () => {
     const { props } = usePage();
 
-    const mainContent = props.homePageContents
-    console.log(mainContent)
+    // const mainContent = props.homePageContents
+    console.log("hi", props);
     return (
         <div>
-            <MainContent content={mainContent} />
+            <MainContent content={props} />
         </div>
     );
 };

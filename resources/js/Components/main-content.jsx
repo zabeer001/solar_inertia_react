@@ -32,20 +32,34 @@ export function MainContent({
             <div className="grid md:grid-cols-2 gap-16">
                 {/* Left Side - Information */}
                 <div className="space-y-8">
-                    {content.map(({ icon_image, content_title, content_description }) => (
-                        <div key={content_title} className="flex gap-4">
-                            <div className="flex-shrink-0">
-                                <div className="w-12 h-12 rounded-full bg-[#F1F8E9] flex items-center justify-center">
-                                    {/* <Icon className="w-6 h-6 text-[#4CAF50]" /> */}
-                                    <img src={`/uploads/${icon_image}`} alt={icon_image} className="rounded-full h-10 w-10" />
+                    {content.homePageContents.map(
+                        ({
+                            icon_image,
+                            content_title,
+                            content_description,
+                        }) => (
+                            <div key={content_title} className="flex gap-4">
+                                <div className="flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-full bg-[#F1F8E9] flex items-center justify-center">
+                                        {/* <Icon className="w-6 h-6 text-[#4CAF50]" /> */}
+                                        <img
+                                            src={`/uploads/${icon_image}`}
+                                            alt={icon_image}
+                                            className="rounded-full h-10 w-10"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold mb-2">
+                                        {content_title}
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        {content_description}
+                                    </p>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="font-bold mb-2">{content_title}</h3>
-                                <p className="text-gray-600">{content_description}</p>
-                            </div>
-                        </div>
-                    ))}
+                        )
+                    )}
 
                     <div className="text-center py-8">
                         <p className="text-gray-800 font-medium mb-4">
