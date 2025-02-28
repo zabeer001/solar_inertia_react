@@ -8,5 +8,5 @@ Route::get('/zabeerfrotnend', function () {
 });
 
 
-Route::get('/billing', [BillingController::class, 'index'])->name('frontend.billing');
+Route::get('/billing/{selectedPanels}', [BillingController::class, 'index'])->name('frontend.billing');
 Route::post('/billing/solarBuy', [BillingController::class, 'solarBuy'])->name('frontend.solarBuy');

@@ -8,11 +8,19 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 export function CheckoutForm() {
     const { props } = usePage();
-    const panels = props.panels || "4";
+    // const panels = props.panels || "4";
     const amount = Number(props.amount?.replace(",", "") || 2200);
     const [paymentMethod, setPaymentMethod] = useState("credit");
 
     const lifetimeValue = (amount * 7.27).toLocaleString();
+    console.log(props.selectedPanels);
+    let selectedPanels = Number(props.selectedPanels);
+    let target_solar_panel = props.campaignDetails.target;
+    let no_solar_panels = props.campaignDetails.no_solar_panels;
+    let one_solar_panel_price = target_solar_panel / no_solar_panels;
+    let lifeTimeSavingsByDonation =
+        (props.campaignDetails.energy_saved / no_solar_panels) * selectedPanels;
+    console.log(lifeTimeSavingsByDonation);
 
     return (
         <form className="grid md:grid-cols-2 gap-12 container mx-auto">
@@ -110,11 +118,13 @@ export function CheckoutForm() {
                     <h2 className="text-xl font-bold mb-4">Your order</h2>
                     <div className="space-y-4">
                         <div className="flex justify-between py-2 border-b">
-                            <span>Solar Panels x {panels}</span>
-                            <span>${amount.toLocaleString()}</span>
+                            <span>Solar Panels x {selectedPanels}</span>
+                            <span>
+                                ${one_solar_panel_price * selectedPanels}
+                            </span>
                         </div>
                         <div className="text-sm text-gray-600">
-                            Lifetime Value of ${lifetimeValue}
+                            Lifetime Value of ${lifeTimeSavingsByDonation}
                         </div>
                         <div className="flex justify-between py-2 border-t font-bold">
                             <span>TOTAL</span>

@@ -14,8 +14,9 @@ class BillingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($selectedPanels)
     {
+   
         $siteDetails = SiteDetails::first();
         $campaignDetails = CampaignDetails::first();
 
@@ -26,7 +27,7 @@ class BillingController extends Controller
             $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
         }
 
-          return Inertia::render('Frontend/Billing',compact('siteDetails', 'campaignDetails'));
+        return Inertia::render('Frontend/Billing', compact('siteDetails', 'campaignDetails','selectedPanels'));
     }
 
     /**
@@ -79,6 +80,6 @@ class BillingController extends Controller
     public function solarBuy(Request $request)
     {
 
-         return redirect()->route('frontend.billing');
+        return redirect()->route('frontend.billing');
     }
 }

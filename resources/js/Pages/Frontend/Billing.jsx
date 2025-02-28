@@ -3,8 +3,13 @@ import MainLayout from "@/Layouts/Frontend/MainLayout";
 import { Hero } from "@/Layouts/Frontend/Partials/Hero";
 import { CheckoutForm } from "@/Components/checkout-form";
 import { Button } from "@headlessui/react";
+import { usePage } from "@inertiajs/react";
 
 const Billing = () => {
+    const { props } = usePage();
+    console.log(props.selectedPanels);
+    let selectedPanels = Number(props.selectedPanels);
+
     return (
         <div className="container mx-auto">
             <div className="flex items-center gap-8 justify-between my-8">
