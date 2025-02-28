@@ -103,13 +103,13 @@ class StripeController extends Controller
             }
         } catch (\Exception $e) {
             Log::error("Error saving sales data: " . $e->getMessage());
-            return redirect()->route('frontend.billing')->with('error', 'Failed to process the payment.');
+            return redirect()->route('frontend.home.index')->with('error', 'Failed to process the payment.');
         }
 
         // Remove BillingInformation entry (optional, if you were saving it earlier)
         // BillingInformation::where('user_id', $user->id)->delete();  // Remove related BillingInformation data if needed
 
-        return redirect()->route('frontend.billing')->with('message', 'Payment successful!');
+        return redirect()->route('frontend.home.index')->with('message', 'Payment successful!');
     }
 
     public function cancel(Request $request)
@@ -141,11 +141,11 @@ class StripeController extends Controller
 
 //         // Set the Stripe API key
 //         Stripe::setApiKey(config('stripe.sk'));
-        
+
 //         // Define default price and product name
 //         $unitAmount = $request->amount * 100;  // $5 in cents
 //         $productName = 'Basic Plan';
-        
+
 //         // Create the checkout session
 //         $session = Session::create([
 //             'payment_method_types' => ['card'],
@@ -168,10 +168,10 @@ class StripeController extends Controller
 //             'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
 //             'cancel_url' => route('stripe.cancel'),
 //         ]);
-        
+
 //         // Return the session URL to the frontend
 //         return Inertia::location($session->url);
-        
+
 //     }
 
 
