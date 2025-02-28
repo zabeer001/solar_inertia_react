@@ -22,7 +22,7 @@ export function Header() {
                         The Foundation
                     </Link>
                     <Link
-                        href="/gallery"
+                        href="#gallery"
                         className="text-black hover:text-gray-900"
                     >
                         Gallery
