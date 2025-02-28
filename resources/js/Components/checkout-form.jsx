@@ -228,13 +228,15 @@ import { Button } from "@/components/ui/button";
 export function CheckoutForm() {
     const { props } = usePage();
     // const panels = props.panels || "4";
-    const amount = Number(props.amount?.replace(",", "") || 2200);
-    const lifetimeValue = (amount * 7.27).toLocaleString();
+
     console.log(props.selectedPanels);
     let selectedPanels = Number(props.selectedPanels);
     let target_solar_panel = props.campaignDetails.target;
     let no_solar_panels = props.campaignDetails.no_solar_panels;
     let one_solar_panel_price = target_solar_panel / no_solar_panels;
+    // const amount = Number(props.amount?.replace(",", "") || 2200);
+    const amount = one_solar_panel_price * selectedPanels;
+    const lifetimeValue = (amount * 7.27).toLocaleString();
     let lifeTimeSavingsByDonation =
         (props.campaignDetails.energy_saved / no_solar_panels) * selectedPanels;
     console.log(lifeTimeSavingsByDonation);

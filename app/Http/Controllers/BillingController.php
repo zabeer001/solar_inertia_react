@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Billing;
 use App\Models\CampaignDetails;
+use App\Models\SalesTracked;
 use App\Models\SiteDetails;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -24,10 +25,19 @@ class BillingController extends Controller
             $siteDetails->main_image_url = $siteDetails->main_image ? asset('storage/' . $siteDetails->main_image) : null;
             $siteDetails->gallery_image_1_url = $siteDetails->gallery_image_1 ? asset('storage/' . $siteDetails->gallery_image_1) : null;
             $siteDetails->gallery_image_2_url = $siteDetails->gallery_image_2 ? asset('storage/' . $siteDetails->gallery_image_2) : null;
+
             $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
         }
 
-        return Inertia::render('Frontend/Billing', compact('siteDetails', 'campaignDetails','selectedPanels'));
+        $sales_tracked_sum = SalesTracked::sum('panels_purchased');
+
+
+        $remain_panel = $campaignDetails->no_solar_panels - $sales_tracked_sum;
+        if ($remain_panel < 0) {
+            $remain_panel = 0;
+        }
+
+        return Inertia::render('Frontend/Billing', compact('siteDetails', 'campaignDetails','selectedPanels','remain_panel'));
     }
 
     /**
