@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Billing;
+use App\Models\CampaignDetails;
 use App\Models\SiteDetails;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,6 +17,8 @@ class BillingController extends Controller
     public function index()
     {
         $siteDetails = SiteDetails::first();
+        $campaignDetails = CampaignDetails::first();
+
         if ($siteDetails) {
             $siteDetails->main_image_url = $siteDetails->main_image ? asset('storage/' . $siteDetails->main_image) : null;
             $siteDetails->gallery_image_1_url = $siteDetails->gallery_image_1 ? asset('storage/' . $siteDetails->gallery_image_1) : null;
@@ -23,7 +26,7 @@ class BillingController extends Controller
             $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
         }
 
-          return Inertia::render('Frontend/Billing',compact('siteDetails'));
+          return Inertia::render('Frontend/Billing',compact('siteDetails', 'campaignDetails'));
     }
 
     /**
@@ -72,5 +75,10 @@ class BillingController extends Controller
     public function destroy(Billing $billing)
     {
         //
+    }
+    public function solarBuy(Request $request)
+    {
+
+         return redirect()->route('frontend.billing');
     }
 }

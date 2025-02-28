@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { router } from "@inertiajs/react";
-import { HardHat, PenTool as Tool, BarChart3, PanelTop } from "lucide-react";
-import { Button } from "@/components/ui/button"; // Adjust path if needed
+import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/inertia-react";
 
-export function MainContent({
-    content
-}) {
+export function MainContent({ content }) {
     const [selectedPanels, setSelectedPanels] = useState(null);
     const [customQuantity, setCustomQuantity] = useState("");
-
+    const initialPrice = 550;
     // const { props } = usePage();
 
     const handleDonate = (panels) => {
@@ -17,35 +13,49 @@ export function MainContent({
         setCustomQuantity(panels.toString());
     };
 
-    const handleCheckout = () => {
-        if (selectedPanels) {
-            router.visit(
-                `/checkout?panels=${selectedPanels}&amount=${
-                    selectedPanels * 550
-                }`
-            );
-        }
-    };
+    // const handleCheckout = () => {
+    //     if (selectedPanels) {
+    //         router.visit(
+    //             `/checkout?panels=${selectedPanels}&amount=${
+    //                 selectedPanels * 550
+    //             }`
+    //         );
+    //     }
+    // };
 
     return (
         <section className="container mx-auto px-4 py-16">
             <div className="grid md:grid-cols-2 gap-16">
                 {/* Left Side - Information */}
                 <div className="space-y-8">
-                    {content.map(({ icon_image, content_title, content_description }) => (
-                        <div key={content_title} className="flex gap-4">
-                            <div className="flex-shrink-0">
-                                <div className="w-12 h-12 rounded-full bg-[#F1F8E9] flex items-center justify-center">
-                                    {/* <Icon className="w-6 h-6 text-[#4CAF50]" /> */}
-                                    <img src={`/uploads/${icon_image}`} alt={icon_image} className="rounded-full h-10 w-10" />
+                    {content.homePageContents.map(
+                        ({
+                            icon_image,
+                            content_title,
+                            content_description,
+                        }) => (
+                            <div key={content_title} className="flex gap-4">
+                                <div className="flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-full bg-[#F1F8E9] flex items-center justify-center">
+                                        {/* <Icon className="w-6 h-6 text-[#4CAF50]" /> */}
+                                        <img
+                                            src={`/uploads/${icon_image}`}
+                                            alt={icon_image}
+                                            className="rounded-full h-10 w-10"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="font-bold mb-2">
+                                        {content_title}
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        {content_description}
+                                    </p>
                                 </div>
                             </div>
-                            <div>
-                                <h3 className="font-bold mb-2">{content_title}</h3>
-                                <p className="text-gray-600">{content_description}</p>
-                            </div>
-                        </div>
-                    ))}
+                        )
+                    )}
 
                     <div className="text-center py-8">
                         <p className="text-gray-800 font-medium mb-4">
@@ -69,15 +79,14 @@ export function MainContent({
                     </h2>
                     <div className="space-y-4">
                         {[1, 2, 3, 4, 5].map((panels) => (
-                            <div
-                                key={panels}
-                                className={`border rounded-md p-4 ${
-                                    selectedPanels === panels
-                                        ? "bg-lime-100"
-                                        : ""
-                                }`}
-                            >
-                                <div className="flex items-center space-x-3">
+                            <div key={panels} className="border rounded-md ">
+                                <div
+                                    className={`flex items-center space-x-3 p-4 rounded-md duration-500 ${
+                                        selectedPanels === panels
+                                            ? "bg-[green] text-white"
+                                            : "bg-[green]/70"
+                                    }`}
+                                >
                                     <input
                                         type="radio"
                                         id={`donate-${panels}`}
@@ -85,11 +94,11 @@ export function MainContent({
                                         value={panels}
                                         checked={selectedPanels === panels}
                                         onChange={() => handleDonate(panels)}
-                                        className="h-4 w-4 text-[#4CAF50] focus:ring-[#4CAF50]"
+                                        className="h-4 w-4 text-[#4CAF50] cursor-pointer"
                                     />
                                     <label
                                         htmlFor={`donate-${panels}`}
-                                        className="flex-grow font-medium"
+                                        className="flex-grow font-medium cursor-pointer"
                                     >
                                         Donate {panels} Solar Panel
                                         {panels > 1 ? "s" : ""}
@@ -98,6 +107,16 @@ export function MainContent({
                                         ${panels * 550}
                                     </span>
                                 </div>
+                                {selectedPanels === panels && (
+                                    <div className="p-4 text-sm text-gray-600 bg-pink-50/80">
+                                        <p className="text-lg">
+                                            Your gift of ${initialPrice} returns
+                                            ${customQuantity * initialPrice} to
+                                            the Indian Hill District ovear the
+                                            lifetime of the system!
+                                        </p>
+                                    </div>
+                                )}
                             </div>
                         ))}
 
@@ -128,6 +147,16 @@ export function MainContent({
                                 />
                             </div>
                         </div>
+                        {customQuantity > 5 && (
+                            <div className="p-4 text-sm !mt-[-16px] text-gray-600 bg-pink-50/80">
+                                <p className="text-lg pt-4">
+                                    Your gift of ${initialPrice} returns $
+                                    {customQuantity * initialPrice} to the
+                                    Indian Hill District ovear the lifetime of
+                                    the system!
+                                </p>
+                            </div>
+                        )}
                     </div>
 
                     {/* Checkout Button */}
