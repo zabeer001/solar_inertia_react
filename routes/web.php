@@ -20,11 +20,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    //Stripe Payment
-    Route::post('/stripe/payment', [StripeController::class, 'payment'])->name('stripe.payment');
-    Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
-    Route::get('/stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
+
 });
+
+//Stripe Payment
+Route::post('/stripe/payment', [StripeController::class, 'payment'])->name('stripe.payment');
+Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
+Route::get('/stripe/cancel', [StripeController::class, 'cancel'])->name('stripe.cancel');
 
 
 
