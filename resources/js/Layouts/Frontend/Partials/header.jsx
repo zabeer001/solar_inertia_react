@@ -16,7 +16,7 @@ export function Header() {
                 </Link>
                 <nav className="flex items-center space-x-8 *:font-black *:text-xl *:my-6">
                     <Link
-                        href="/foundation"
+                        href="/"
                         className="text-black hover:text-gray-900"
                     >
                         The Foundation
@@ -39,12 +39,12 @@ export function Header() {
                     >
                         Faqs
                     </Link>
-                    <Link
+                    {/* <Link
                         href="/checkout"
                         className="text-black hover:text-gray-900"
                     >
                         Checkout
-                    </Link>
+                    </Link> */}
                 </nav>
             </div>
         </header>
