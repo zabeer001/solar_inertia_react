@@ -18,11 +18,28 @@ class ContentController extends Controller
     public function index()
     {
         $contentDetails = Content::all(); // Retrieve all content records from the database
-
+    
+        // Define the attributes that need to be modified
+        $attributesToModify = ['icon_image']; // List the attributes that need to have the URL prefix
+    
+        // Modify the attributes dynamically based on the array
+        $contentDetails = $contentDetails->map(function ($item) use ($attributesToModify) {
+            foreach ($attributesToModify as $attribute) {
+                if ($item->{$attribute}) {
+                    // Prefix the value with the full URL path
+                    $item->{$attribute} = url('storage/' . $item->{$attribute});
+                }
+            }
+            return $item;
+        });
+    
+       
+    
         return Inertia::render('Backend/contentDetails/Index', [
             'siteDetails' => $contentDetails
         ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -85,62 +102,41 @@ class ContentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
 
-        dd($request->all());
+        // dd($request);
+
         // Validate input
         $validatedData = $request->validate([
             'content_title' => 'nullable|string|max:255',
             'content_description' => 'nullable|string',
             'icon_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-    
-        // Find the content by ID
-        $content = Content::findOrFail($id);
-    
-        // Handle image upload (if a new file is provided)
+
+        $content = Content::where('id', $request->id)->first();
+        $content->content_title = $request->content_title;
+        $content->content_description = $request->content_description;
+
         if ($request->hasFile('icon_image')) {
-            $imagePath = $this->uploadImage($request, 'icon_image', $request->file('icon_image'));
-        } else {
-            $imagePath = $content->icon_image; // Keep existing image
+            $file = $request->file('icon_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $image_path = $file->storeAs('content_images', $filename, 'public');
+            $content->icon_image = $image_path;
         }
-    
-        // Update content details
-        $content->update([
-            'content_title' => $validatedData['content_title'],
-            'content_description' => $validatedData['content_description'],
-            'icon_image' => $imagePath,
-        ]);
-    
+        $content->save();
+
+        //$image_url = asset('storage/content_images/' . $content->icon_image);
+
+
         // Redirect with success message
         return redirect()->route('contents.index')->with('success', 'Content updated successfully');
     }
-    
-    
+
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        try {
-            $content = Content::findOrFail($id);
-
-            // Check if the image exists in the 'uploads' folder and delete it
-            if ($content->icon_image && Storage::exists('uploads/' . $content->icon_image)) {
-                Storage::delete('uploads/' . $content->icon_image);
-            }
-
-            // Delete the content record
-            $content->delete();
-
-            return redirect()->route('contents.index')->with('success', 'Content deleted successfully!');
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->route('contents.index')->with('error', 'Content not found!');
-        } catch (\Exception $e) {
-            Log::error('Error deleting content: ' . $e->getMessage());
-            return redirect()->route('contents.index')->with('error', 'An unexpected error occurred!');
-        }
-    }
+ 
 }

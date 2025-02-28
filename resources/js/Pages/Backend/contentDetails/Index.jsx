@@ -59,7 +59,7 @@ function Index({ siteDetails }) {
                             <TableCell>
                                 {site.icon_image && (
                                     <img
-                                        src={`/uploads/${site.icon_image}`}
+                                        src={`${site.icon_image}`}
                                         height="50"
                                         alt={"Icon Image"}
                                         width="100"
