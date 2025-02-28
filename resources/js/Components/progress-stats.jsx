@@ -6,10 +6,9 @@ export function ProgressStats() {
     const { props } = usePage();
     const campaignDetails = props.campaignDetails;
     console.log("campaign Details", props);
-    
-    
+
     return (
-        <section className="bg-[#F1F8E9] py-8">
+        <section className="bg-[#F1F8E9] py-8 border-t-[50px] border-[green]/70">
             <div className="container mx-auto px-4 grid grid-cols-3 gap-8">
                 <div className="text-center">
                     <div className="inline-flex items-center justify-center mb-2">
