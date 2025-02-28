@@ -46,7 +46,7 @@ export function ProgressStats() {
                             <path d="M6 16h12" />
                         </svg>
                     </div>
-                    <div className="text-4xl font-bold text-[#4CAF50]">863</div>
+                    <div className="text-4xl font-bold text-[#4CAF50]">{props.remain_panel}</div>
                     <div className="text-[#4CAF50]">Panels Remaining</div>
                 </div>
                 <div>

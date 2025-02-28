@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CampaignDetails;
 use App\Models\Content;
 use App\Models\Home;
+use App\Models\SalesTracked;
 use App\Models\SiteDetails;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -29,8 +30,16 @@ class HomeController extends Controller
              $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
          }
          $homePageContents = Content::all();
+         $sales_tracked_sum=SalesTracked::sum('panels_purchased');
+
+
+         $remain_panel=$campaignDetails->no_solar_panels-$sales_tracked_sum;
+         if($remain_panel<0){
+             $remain_panel=0;
+         }
+
      
-         return Inertia::render('Frontend/Home', compact('siteDetails','campaignDetails','homePageContents'));
+         return Inertia::render('Frontend/Home', compact('siteDetails','campaignDetails','homePageContents','remain_panel'));
      }
      
 
