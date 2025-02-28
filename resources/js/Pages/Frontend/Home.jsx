@@ -9,13 +9,13 @@ const Home = () => {
     const galleryImg1 = props.siteDetails.gallery_image_1_url;
     const galleryImg2 = props.siteDetails.gallery_image_2_url;
     return (
-        <div>
+        <div className="scroll-smooth border-t-[50px] border-[green]/70 " >
             <MainContent content={props} />
-            <div className=" h-screen container mx-auto">
+            <div className=" h-screen container mx-auto md:pt-24" id="gallery">
                 <h1 className="text-4xl font-extrabold mb-8">
                     Project Gallery:
                 </h1>
-                <div className="flex gap-16">
+                <div className="flex gap-16 items-center justify-center" >
                     <div className="flex-1">
                         <img src={galleryImg1} alt="" className="rounded-3xl" />
                     </div>
