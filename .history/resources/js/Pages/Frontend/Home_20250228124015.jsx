@@ -6,21 +6,21 @@ import { MainContent } from "@/Components/main-content";
 const Home = () => {
     const { props } = usePage();
 
+    const mainContent = props.homePageContents;
     const galleryImg1 = props.siteDetails.gallery_image_1_url;
     const galleryImg2 = props.siteDetails.gallery_image_2_url;
+    console.log(mainContent);
     return (
         <div>
-            <MainContent content={props} />
+            <MainContent content={mainContent} />
             <div className=" h-screen container mx-auto">
-                <h1 className="text-4xl font-extrabold mb-8">
-                    Project Gallery:
-                </h1>
-                <div className="flex gap-16">
+                <h1 className="text-3xl font-bold mb-8">Project Gallery:</h1>
+                <div className="flex">
                     <div className="flex-1">
-                        <img src={galleryImg1} alt="" className="rounded-3xl" />
+                        <img src={galleryImg1} alt="" />
                     </div>
                     <div className="flex-1">
-                        <img src={galleryImg2} alt="" className="rounded-3xl" />
+                        <img src={galleryImg2} alt="" />
                     </div>
                 </div>
             </div>

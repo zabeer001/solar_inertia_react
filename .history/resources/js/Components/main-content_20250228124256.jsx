@@ -5,7 +5,7 @@ import { Link } from "@inertiajs/inertia-react";
 export function MainContent({ content }) {
     const [selectedPanels, setSelectedPanels] = useState(null);
     const [customQuantity, setCustomQuantity] = useState("");
-    const initialPrice = 550;
+    const initialPrice = 550
     // const { props } = usePage();
 
     const handleDonate = (panels) => {
@@ -28,7 +28,7 @@ export function MainContent({ content }) {
             <div className="grid md:grid-cols-2 gap-16">
                 {/* Left Side - Information */}
                 <div className="space-y-8">
-                    {content.homePageContents.map(
+                    {content.map(
                         ({
                             icon_image,
                             content_title,
@@ -83,8 +83,8 @@ export function MainContent({ content }) {
                                 <div
                                     className={`flex items-center space-x-3 p-4 rounded-md duration-500 ${
                                         selectedPanels === panels
-                                            ? "bg-[green] text-white"
-                                            : "bg-[green]/70"
+                                            ? "bg-green-400"
+                                            : ""
                                     }`}
                                 >
                                     <input
@@ -108,12 +108,10 @@ export function MainContent({ content }) {
                                     </span>
                                 </div>
                                 {selectedPanels === panels && (
-                                    <div className="p-4 text-sm text-gray-600 bg-pink-50/80">
-                                        <p className="text-lg">
+                                    <div className="m-4 text-sm text-gray-600">
+                                        <p>
                                             Your gift of ${initialPrice} returns
-                                            ${customQuantity * initialPrice} to
-                                            the Indian Hill District ovear the
-                                            lifetime of the system!
+                                            ${panels * initialPrice}
                                         </p>
                                         {/* <p>
                                             Your donation of ${panels * 550}{" "}
@@ -175,12 +173,6 @@ export function MainContent({ content }) {
                         {customQuantity > 5 && (
                             <div className="mt-3 text-sm text-gray-600">
                                 <p>
-                                    Your gift of ${initialPrice} returns $
-                                    {customQuantity * initialPrice} to the
-                                    Indian Hill District ovear the lifetime of
-                                    the system!
-                                </p>
-                                {/* <p>
                                     Your donation of ${customQuantity * 550}{" "}
                                     will:
                                 </p>
@@ -204,7 +196,7 @@ export function MainContent({ content }) {
                                         {customQuantity * 550 * 7.27} in value
                                         over the system's lifetime
                                     </li>
-                                </ul> */}
+                                </ul>
                             </div>
                         )}
                     </div>
