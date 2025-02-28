@@ -115,31 +115,6 @@ export function MainContent({ content }) {
                                             the Indian Hill District ovear the
                                             lifetime of the system!
                                         </p>
-                                        {/* <p>
-                                            Your donation of ${panels * 550}{" "}
-                                            will:
-                                        </p>
-                                        <ul className="list-disc list-inside mt-2">
-                                            <li>
-                                                Install {panels} high-efficiency
-                                                solar panel
-                                                {panels > 1 ? "s" : ""}
-                                            </li>
-                                            <li>
-                                                Generate approximately{" "}
-                                                {panels * 1.5} MWh of clean
-                                                energy annually
-                                            </li>
-                                            <li>
-                                                Offset about {panels * 1.2} tons
-                                                of CO2 each year
-                                            </li>
-                                            <li>
-                                                Provide an estimated $
-                                                {panels * 550 * 7.27} in value
-                                                over the system's lifetime
-                                            </li>
-                                        </ul> */}
                                     </div>
                                 )}
                             </div>
@@ -173,38 +148,13 @@ export function MainContent({ content }) {
                             </div>
                         </div>
                         {customQuantity > 5 && (
-                            <div className="mt-3 text-sm text-gray-600">
-                                <p>
+                            <div className="p-4 text-sm !mt-[-16px] text-gray-600 bg-pink-50/80">
+                                <p className="text-lg pt-4">
                                     Your gift of ${initialPrice} returns $
                                     {customQuantity * initialPrice} to the
                                     Indian Hill District ovear the lifetime of
                                     the system!
                                 </p>
-                                {/* <p>
-                                    Your donation of ${customQuantity * 550}{" "}
-                                    will:
-                                </p>
-                                <ul className="list-disc list-inside mt-2">
-                                    <li>
-                                        Install {customQuantity} high-efficiency
-                                        solar panel
-                                        {customQuantity > 1 ? "s" : ""}
-                                    </li>
-                                    <li>
-                                        Generate approximately{" "}
-                                        {customQuantity * 1.5} MWh of clean
-                                        energy annually
-                                    </li>
-                                    <li>
-                                        Offset about {customQuantity * 1.2} tons
-                                        of CO2 each year
-                                    </li>
-                                    <li>
-                                        Provide an estimated $
-                                        {customQuantity * 550 * 7.27} in value
-                                        over the system's lifetime
-                                    </li>
-                                </ul> */}
                             </div>
                         )}
                     </div>
