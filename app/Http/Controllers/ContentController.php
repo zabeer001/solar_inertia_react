@@ -55,24 +55,32 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // Validate the input
         $validatedData = $request->validate([
             'content_title' => 'required|string|max:255',
             'content_description' => 'required|string',
-            'icon_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Make icon_image required during creation
         ]);
-
+    
+        // Create a new content instance
         $content = new Content();
-        $imagePath = $this->uploadImage($request, 'icon_image');
-
+    
+        // Set the content title and description
         $content->content_title = $validatedData['content_title'];
         $content->content_description = $validatedData['content_description'];
-        $content->icon_image = $imagePath;
-
-
+    
+        // Handle the image upload
+        if ($request->hasFile('icon_image')) {
+            // Call the uploadImage method to store the new image and get the image path
+            $imagePath = $this->uploadImage($request, 'icon_image');
+            $content->icon_image = $imagePath;
+        }
+    
+        // Save the new content to the database
         $content->save();
-
-        return redirect()->route('contents.index');
+    
+        // Redirect with a success message (you can customize this)
+        return redirect()->route('contents.index')->with('success', 'Content created successfully');
     }
 
     /**
