@@ -83,8 +83,8 @@ export function MainContent({ content }) {
                                 <div
                                     className={`flex items-center space-x-3 p-4 rounded-md duration-500 ${
                                         selectedPanels === panels
-                                            ? "bg-[green] text-white"
-                                            : "bg-[green]/70"
+                                            ? "bg-green-800/"
+                                            : "bg-green-300"
                                     }`}
                                 >
                                     <input

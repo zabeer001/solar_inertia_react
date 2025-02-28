@@ -83,8 +83,8 @@ export function MainContent({ content }) {
                                 <div
                                     className={`flex items-center space-x-3 p-4 rounded-md duration-500 ${
                                         selectedPanels === panels
-                                            ? "bg-[green] text-white"
-                                            : "bg-[green]/70"
+                                            ? "bg-green-400"
+                                            : ""
                                     }`}
                                 >
                                     <input
@@ -108,8 +108,8 @@ export function MainContent({ content }) {
                                     </span>
                                 </div>
                                 {selectedPanels === panels && (
-                                    <div className="p-4 text-sm text-gray-600 bg-pink-50/80">
-                                        <p className="text-lg">
+                                    <div className="m-4 text-sm text-gray-600">
+                                        <p>
                                             Your gift of ${initialPrice} returns
                                             ${customQuantity * initialPrice} to
                                             the Indian Hill District ovear the

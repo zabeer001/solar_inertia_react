@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { router } from "@inertiajs/react";
+import { HardHat, PenTool as Tool, BarChart3, PanelTop } from "lucide-react";
+import { Button } from "@/components/ui/button"; // Adjust path if needed
 import { Link } from "@inertiajs/inertia-react";
 
 export function MainContent({ content }) {
     const [selectedPanels, setSelectedPanels] = useState(null);
     const [customQuantity, setCustomQuantity] = useState("");
-    const initialPrice = 550;
+
     // const { props } = usePage();
 
     const handleDonate = (panels) => {
@@ -13,15 +15,15 @@ export function MainContent({ content }) {
         setCustomQuantity(panels.toString());
     };
 
-    // const handleCheckout = () => {
-    //     if (selectedPanels) {
-    //         router.visit(
-    //             `/checkout?panels=${selectedPanels}&amount=${
-    //                 selectedPanels * 550
-    //             }`
-    //         );
-    //     }
-    // };
+    const handleCheckout = () => {
+        if (selectedPanels) {
+            router.visit(
+                `/checkout?panels=${selectedPanels}&amount=${
+                    selectedPanels * 550
+                }`
+            );
+        }
+    };
 
     return (
         <section className="container mx-auto px-4 py-16">
@@ -79,12 +81,12 @@ export function MainContent({ content }) {
                     </h2>
                     <div className="space-y-4">
                         {[1, 2, 3, 4, 5].map((panels) => (
-                            <div key={panels} className="border rounded-md ">
+                            <div key={panels} className="border rounded-md p-4">
                                 <div
-                                    className={`flex items-center space-x-3 p-4 rounded-md duration-500 ${
+                                    className={`flex items-center space-x-3 p-3 rounded-md duration-500 ${
                                         selectedPanels === panels
-                                            ? "bg-[green] text-white"
-                                            : "bg-[green]/70"
+                                            ? "bg-green-400"
+                                            : ""
                                     }`}
                                 >
                                     <input
@@ -94,11 +96,11 @@ export function MainContent({ content }) {
                                         value={panels}
                                         checked={selectedPanels === panels}
                                         onChange={() => handleDonate(panels)}
-                                        className="h-4 w-4 text-[#4CAF50] cursor-pointer"
+                                        className="h-4 w-4 text-[#4CAF50]"
                                     />
                                     <label
                                         htmlFor={`donate-${panels}`}
-                                        className="flex-grow font-medium cursor-pointer"
+                                        className="flex-grow font-medium"
                                     >
                                         Donate {panels} Solar Panel
                                         {panels > 1 ? "s" : ""}
@@ -108,14 +110,8 @@ export function MainContent({ content }) {
                                     </span>
                                 </div>
                                 {selectedPanels === panels && (
-                                    <div className="p-4 text-sm text-gray-600 bg-pink-50/80">
-                                        <p className="text-lg">
-                                            Your gift of ${initialPrice} returns
-                                            ${customQuantity * initialPrice} to
-                                            the Indian Hill District ovear the
-                                            lifetime of the system!
-                                        </p>
-                                        {/* <p>
+                                    <div className="mt-3 text-sm text-gray-600">
+                                        <p>
                                             Your donation of ${panels * 550}{" "}
                                             will:
                                         </p>
@@ -139,7 +135,7 @@ export function MainContent({ content }) {
                                                 {panels * 550 * 7.27} in value
                                                 over the system's lifetime
                                             </li>
-                                        </ul> */}
+                                        </ul>
                                     </div>
                                 )}
                             </div>
@@ -172,15 +168,9 @@ export function MainContent({ content }) {
                                 />
                             </div>
                         </div>
-                        {customQuantity > 5 && (
+                        {customQuantity && (
                             <div className="mt-3 text-sm text-gray-600">
                                 <p>
-                                    Your gift of ${initialPrice} returns $
-                                    {customQuantity * initialPrice} to the
-                                    Indian Hill District ovear the lifetime of
-                                    the system!
-                                </p>
-                                {/* <p>
                                     Your donation of ${customQuantity * 550}{" "}
                                     will:
                                 </p>
@@ -201,10 +191,10 @@ export function MainContent({ content }) {
                                     </li>
                                     <li>
                                         Provide an estimated $
-                                        {customQuantity * 550 * 7.27} in value
-                                        over the system's lifetime
+                                        {panels * 550 * 7.27} in value over the
+                                        system's lifetime
                                     </li>
-                                </ul> */}
+                                </ul>
                             </div>
                         )}
                     </div>

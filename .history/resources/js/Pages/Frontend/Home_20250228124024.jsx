@@ -14,15 +14,13 @@ const Home = () => {
         <div>
             <MainContent content={mainContent} />
             <div className=" h-screen container mx-auto">
-                <h1 className="text-4xl font-extrabold mb-8">
-                    Project Gallery:
-                </h1>
-                <div className="flex gap-16">
+                <h1 className="text-3xl font-extrabold mb-8">Project Gallery:</h1>
+                <div className="flex">
                     <div className="flex-1">
-                        <img src={galleryImg1} alt="" className="rounded-3xl" />
+                        <img src={galleryImg1} alt="" />
                     </div>
                     <div className="flex-1">
-                        <img src={galleryImg2} alt="" className="rounded-3xl" />
+                        <img src={galleryImg2} alt="" />
                     </div>
                 </div>
             </div>

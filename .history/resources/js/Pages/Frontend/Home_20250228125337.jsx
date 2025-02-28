@@ -17,7 +17,7 @@ const Home = () => {
                 <h1 className="text-4xl font-extrabold mb-8">
                     Project Gallery:
                 </h1>
-                <div className="flex gap-16">
+                <div className="flex gap-8">
                     <div className="flex-1">
                         <img src={galleryImg1} alt="" className="rounded-3xl" />
                     </div>

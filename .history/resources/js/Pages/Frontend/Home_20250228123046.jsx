@@ -13,17 +13,12 @@ const Home = () => {
     return (
         <div>
             <MainContent content={mainContent} />
-            <div className=" h-screen container mx-auto">
-                <h1 className="text-4xl font-extrabold mb-8">
-                    Project Gallery:
-                </h1>
-                <div className="flex gap-16">
-                    <div className="flex-1">
-                        <img src={galleryImg1} alt="" className="rounded-3xl" />
-                    </div>
-                    <div className="flex-1">
-                        <img src={galleryImg2} alt="" className="rounded-3xl" />
-                    </div>
+            <div className="flex h-sc">
+                <div className="flex-1">
+                    <img src={galleryImg1} alt="" />
+                </div>
+                <div className="flex-1">
+                    <img src={galleryImg2} alt="" />
                 </div>
             </div>
         </div>
