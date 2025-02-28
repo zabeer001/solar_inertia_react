@@ -239,6 +239,7 @@ export function CheckoutForm() {
         firstName: "",
         lastName: "",
         company: "",
+        country: "",
         address: "",
         city: "",
         zip: "",
@@ -294,6 +295,7 @@ export function CheckoutForm() {
 
                     {[
                         { id: "company", label: "Company name (optional)" },
+                        { id: "country", label: "Country/Region*", required: true },
                         { id: "address", label: "Street address *", required: true },
                         { id: "city", label: "Town / City *", required: true },
                         { id: "zip", label: "ZIP Code *", required: true },
