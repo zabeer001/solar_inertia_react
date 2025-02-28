@@ -26,7 +26,7 @@ class StripeController extends Controller
         $salesTracked = new SalesTracked();
         $salesTracked->f_name = $request->input('firstName') ?? 'Not Provided';
         $salesTracked->l_name = $request->input('lastName') ?? 'Not Provided';
-        $salesTracked->panels_purchased = $request->input('panels_purchased') ?? 1;
+        $salesTracked->panels_purchased = $request->input('panels_purchased');
         $salesTracked->country = $request->input('country') ?? 'Not Provided';
         $salesTracked->street = $request->input('address') ?? 'Not Provided';
         $salesTracked->town = $request->input('city') ?? 'Not Provided';

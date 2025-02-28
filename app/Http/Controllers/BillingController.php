@@ -29,7 +29,7 @@ class BillingController extends Controller
             $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
         }
 
-        $sales_tracked_sum = SalesTracked::sum('panels_purchased');
+        $sales_tracked_sum = SalesTracked::where('status', 'paid')->sum('panels_purchased');
 
 
         $remain_panel = $campaignDetails->no_solar_panels - $sales_tracked_sum;

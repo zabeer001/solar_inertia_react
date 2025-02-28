@@ -255,6 +255,7 @@ export function CheckoutForm() {
         state: "GA",
         notes: "",
         paymentMethod: "credit",
+        panels_purchased: selectedPanels,
     });
 
     // Handle input changes

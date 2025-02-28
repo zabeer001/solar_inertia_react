@@ -7,7 +7,7 @@ export function MainContent({ content }) {
     const [customQuantity, setCustomQuantity] = useState("");
     const initialPrice = 550;
     console.log(content);
-    
+
     // const { props } = usePage();
 
     const handleDonate = (panels) => {
