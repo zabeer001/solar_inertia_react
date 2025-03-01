@@ -20,5 +20,6 @@ class SalesTracked extends Model
         'zip_code',
         'phone',
         'email',
+        'status',
     ];
 }

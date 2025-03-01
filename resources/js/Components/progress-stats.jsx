@@ -7,12 +7,16 @@ export function ProgressStats() {
 
     const campaignDetails = props.campaignDetails;
     let c=campaignDetails.no_solar_panels;
+    let a=campaignDetails.target;
     let g=props.sales_tracked_sum;
     
 
     let h=g*c;
-    let a=campaignDetails.target;
-    let j=(h/a)*100    
+    let j=(h/a)*100;    
+
+    if(j<=0){
+        j=1;
+    }
 
     console.log("campaign Details", props);
 

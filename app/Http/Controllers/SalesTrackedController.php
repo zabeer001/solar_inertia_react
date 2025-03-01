@@ -28,14 +28,14 @@ class SalesTrackedController extends Controller
             ->orWhere('phone', 'LIKE', "%{$search}%")
             ->orWhere('email', 'LIKE', "%{$search}%")
             ->paginate(10); // Adjust the pagination as needed
-            
+
 
         return Inertia::render('Backend/SalesTracked/Index', [
             'sales' => $sales,
         ]);
     }
-    
-    
+
+
 
     // Show the form to create new sales entry
     public function create()
@@ -58,6 +58,9 @@ class SalesTrackedController extends Controller
             'phone' => 'required|string',
             'email' => 'required|email',
         ]);
+
+        // Add default status
+        $data['status'] = 'paid';
 
         SalesTracked::create($data);
 
@@ -97,7 +100,4 @@ class SalesTrackedController extends Controller
         $salesTracked->delete();
         return redirect()->route('sales_tracked.index');
     }
-
-    
 }
-
