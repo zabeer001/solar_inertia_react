@@ -15,7 +15,7 @@ export function ProgressStats() {
     
 
     const h = g * c;
-    const j = (h / a) * 100;    
+    var j = (h / a) * 100;    
 
     if(j<=1){
         j=1;
