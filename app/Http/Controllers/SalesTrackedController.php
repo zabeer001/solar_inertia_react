@@ -11,7 +11,8 @@ class SalesTrackedController extends Controller
     // Show all sales tracked data
     public function index()
     {
-        $sales = SalesTracked::paginate(10); // Fetch 10 records per page
+        $sales = SalesTracked::where('status', 'paid')->paginate(10);
+
         return Inertia::render('SalesTracked/Index', ['sales' => $sales]);
     }
     public function search(Request $request)

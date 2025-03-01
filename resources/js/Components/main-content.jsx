@@ -6,6 +6,8 @@ export function MainContent({ content }) {
     const [selectedPanels, setSelectedPanels] = useState(null);
     const [customQuantity, setCustomQuantity] = useState("");
     const initialPrice = 550;
+    console.log(content);
+
     // const { props } = usePage();
 
     const handleDonate = (panels) => {
@@ -104,16 +106,30 @@ export function MainContent({ content }) {
                                         {panels > 1 ? "s" : ""}
                                     </label>
                                     <span className="font-bold">
-                                        ${panels * 550}
+                                        $
+                                        {panels *
+                                            (content.campaignDetails.target /
+                                                content.campaignDetails
+                                                    .no_solar_panels)}
                                     </span>
                                 </div>
                                 {selectedPanels === panels && (
                                     <div className="p-4 text-sm text-gray-600 bg-pink-50/80">
                                         <p className="text-lg">
-                                            Your gift of ${initialPrice} returns
-                                            ${customQuantity * initialPrice} to
-                                            the Indian Hill District ovear the
-                                            lifetime of the system!
+                                            Your gift of $
+                                            {panels *
+                                                (content.campaignDetails
+                                                    .target /
+                                                    content.campaignDetails
+                                                        .no_solar_panels)}{" "}
+                                            returns $
+                                            {panels *
+                                                (content.campaignDetails
+                                                    .energy_saved /
+                                                    content.campaignDetails
+                                                        .no_solar_panels)}{" "}
+                                            to the Indian Hill District ovear
+                                            the lifetime of the system!
                                         </p>
                                     </div>
                                 )}
@@ -150,10 +166,18 @@ export function MainContent({ content }) {
                         {customQuantity > 5 && (
                             <div className="p-4 text-sm !mt-[-16px] text-gray-600 bg-pink-50/80">
                                 <p className="text-lg pt-4">
-                                    Your gift of ${initialPrice} returns $
-                                    {customQuantity * initialPrice} to the
-                                    Indian Hill District ovear the lifetime of
-                                    the system!
+                                    Your gift of $
+                                    {customQuantity *
+                                        (content.campaignDetails.target /
+                                            content.campaignDetails
+                                                .no_solar_panels)}{" "}
+                                    returns $
+                                    {customQuantity *
+                                        (content.campaignDetails.energy_saved /
+                                            content.campaignDetails
+                                                .no_solar_panels)}{" "}
+                                    to the Indian Hill District ovear the
+                                    lifetime of the system!
                                 </p>
                             </div>
                         )}
@@ -161,7 +185,7 @@ export function MainContent({ content }) {
 
                     {/* Checkout Button */}
                     <Link
-                        href="/billing"
+                        href={`/billing/${selectedPanels}`} // Adding the index to the URL
                         className="w-full bg-[#D32F2F] hover:bg-[#B71C1C] mt-4 inline-flex items-center justify-center px-4 py-2 text-white rounded-md"
                     >
                         GO TO CHECKOUT

@@ -69,7 +69,7 @@ function Index({ siteDetails }) {
                                         height="50"
                                         alt={"Icon Image"}
                                         width="100"
-                                        className="w-[150px] h-[75px] rounded-md"
+                                        className="w-[150px] h-[100px] rounded-md object-cover"
                                     />
                                 )}
                             </TableCell>
@@ -93,9 +93,19 @@ function Index({ siteDetails }) {
                             </TableCell>
                         </TableRow>
                     ))}
+
+                    
                 </TableBody>
+                
             </Table>
+            
+
+            
         </div>
+
+        
+
+        
     );
 }
 

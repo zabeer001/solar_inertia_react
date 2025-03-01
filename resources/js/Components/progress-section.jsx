@@ -1,13 +1,14 @@
 import { Progress } from "@/Components/ui/progress";
 
 export function ProgressSection() {
+    
     const totalPanels = 2727;
     const remainingPanels = 863;
     const installedPanels = totalPanels - remainingPanels;
     const progressPercentage = (installedPanels / totalPanels) * 100;
 
     const totalGoal = 1500000;
-    const amountRaised = 1020000;
+    const amountRaised = 10200;
     const fundingProgress = (amountRaised / totalGoal) * 100;
 
     return (

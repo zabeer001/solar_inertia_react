@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import BackendLayout from "@/Layouts/Backend/BackendLayout";
 
+
 function CreateOrEdit({ contentDetail }) {
   const { data, setData, post, processing, errors } = useForm({
     icon_image: contentDetail?.icon_image || "",
@@ -29,6 +30,8 @@ function CreateOrEdit({ contentDetail }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     post(route("contents.store"));
+
+
   };
 
   return (
@@ -99,6 +102,7 @@ function CreateOrEdit({ contentDetail }) {
             type="submit"
             disabled={processing}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+      
           >
             {processing ? "Saving..." : "Save"}
           </button>

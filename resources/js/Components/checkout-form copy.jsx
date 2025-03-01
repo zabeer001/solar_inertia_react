@@ -217,6 +217,9 @@
 //     );
 // }
 
+
+
+
 import { useState } from "react";
 import { usePage } from "@inertiajs/react";
 import { Inertia } from "@inertiajs/inertia";
@@ -228,15 +231,13 @@ import { Button } from "@/components/ui/button";
 export function CheckoutForm() {
     const { props } = usePage();
     // const panels = props.panels || "4";
-
+    const amount = Number(props.amount?.replace(",", "") || 2200);
+    const lifetimeValue = (amount * 7.27).toLocaleString();
     console.log(props.selectedPanels);
     let selectedPanels = Number(props.selectedPanels);
     let target_solar_panel = props.campaignDetails.target;
     let no_solar_panels = props.campaignDetails.no_solar_panels;
     let one_solar_panel_price = target_solar_panel / no_solar_panels;
-    // const amount = Number(props.amount?.replace(",", "") || 2200);
-    const amount = one_solar_panel_price * selectedPanels;
-    const lifetimeValue = (amount * 7.27).toLocaleString();
     let lifeTimeSavingsByDonation =
         (props.campaignDetails.energy_saved / no_solar_panels) * selectedPanels;
     console.log(lifeTimeSavingsByDonation);
@@ -255,7 +256,6 @@ export function CheckoutForm() {
         state: "GA",
         notes: "",
         paymentMethod: "credit",
-        panels_purchased: selectedPanels,
     });
 
     // Handle input changes
@@ -271,7 +271,7 @@ export function CheckoutForm() {
     const handlePayment = (e) => {
         e.preventDefault();
         console.log("Final Form Data:", formData);
-
+        
         Inertia.post(route("stripe.payment"), {
             amount: amount,
             ...formData,
@@ -279,10 +279,7 @@ export function CheckoutForm() {
     };
 
     return (
-        <form
-            onSubmit={handlePayment}
-            className="grid md:grid-cols-2 gap-12 container mx-auto"
-        >
+        <form onSubmit={handlePayment} className="grid md:grid-cols-2 gap-12 container mx-auto">
             {/* Left Column - Billing Details */}
             <div>
                 <div className="space-y-6">
@@ -291,9 +288,7 @@ export function CheckoutForm() {
                         {["firstName", "lastName"].map((field) => (
                             <div key={field} className="space-y-2">
                                 <Label htmlFor={field} className="text-sm">
-                                    {field === "firstName"
-                                        ? "First name *"
-                                        : "Last name *"}
+                                    {field === "firstName" ? "First name *" : "Last name *"}
                                 </Label>
                                 <Input
                                     id={field}
@@ -308,35 +303,15 @@ export function CheckoutForm() {
 
                     {[
                         { id: "company", label: "Company name (optional)" },
-                        {
-                            id: "country",
-                            label: "Country/Region*",
-                            required: true,
-                        },
-                        {
-                            id: "address",
-                            label: "Street address *",
-                            required: true,
-                        },
+                        { id: "country", label: "Country/Region*", required: true },
+                        { id: "address", label: "Street address *", required: true },
                         { id: "city", label: "Town / City *", required: true },
                         { id: "zip", label: "ZIP Code *", required: true },
-                        {
-                            id: "phone",
-                            label: "Phone *",
-                            required: true,
-                            type: "tel",
-                        },
-                        {
-                            id: "email",
-                            label: "Email address *",
-                            required: true,
-                            type: "email",
-                        },
+                        { id: "phone", label: "Phone *", required: true, type: "tel" },
+                        { id: "email", label: "Email address *", required: true, type: "email" },
                     ].map(({ id, label, required, type }) => (
                         <div key={id} className="space-y-2">
-                            <Label htmlFor={id} className="text-sm">
-                                {label}
-                            </Label>
+                            <Label htmlFor={id} className="text-sm">{label}</Label>
                             <Input
                                 id={id}
                                 required={required}
@@ -349,9 +324,7 @@ export function CheckoutForm() {
                     ))}
 
                     <div className="space-y-2">
-                        <Label htmlFor="state" className="text-sm">
-                            State *
-                        </Label>
+                        <Label htmlFor="state" className="text-sm">State *</Label>
                         <select
                             id="state"
                             className="w-full h-10 px-3 rounded-md border bg-background text-sm"
@@ -363,9 +336,7 @@ export function CheckoutForm() {
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="notes" className="text-sm">
-                            Order notes (optional)
-                        </Label>
+                        <Label htmlFor="notes" className="text-sm">Order notes (optional)</Label>
                         <textarea
                             id="notes"
                             rows={4}
@@ -394,9 +365,7 @@ export function CheckoutForm() {
                         </div>
                         <div className="flex justify-between py-2 border-t font-bold">
                             <span>TOTAL</span>
-                            <span>
-                                ${one_solar_panel_price * selectedPanels}
-                            </span>
+                            <span>${amount.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>
@@ -405,22 +374,14 @@ export function CheckoutForm() {
                 <div className="bg-gray-50 rounded-lg p-6">
                     <RadioGroup
                         value={formData.paymentMethod}
-                        onValueChange={(value) =>
-                            setFormData((prev) => ({
-                                ...prev,
-                                paymentMethod: value,
-                            }))
-                        }
+                        onValueChange={(value) => setFormData((prev) => ({ ...prev, paymentMethod: value }))}
                         className="space-y-4"
                     >
                         {[
                             { id: "bank", label: "Direct bank transfer" },
                             { id: "credit", label: "Credit Card (Stripe)" },
                         ].map(({ id, label }) => (
-                            <div
-                                key={id}
-                                className="flex items-center space-x-2"
-                            >
+                            <div key={id} className="flex items-center space-x-2">
                                 <RadioGroupItem value={id} id={id} />
                                 <Label htmlFor={id}>{label}</Label>
                             </div>

@@ -5,6 +5,9 @@ import { CheckoutForm } from "@/Components/checkout-form";
 import { Button } from "@headlessui/react";
 
 const Billing = () => {
+
+    
+
     return (
         <div className="container mx-auto">
             <div className="flex items-center gap-8 justify-between my-8">
