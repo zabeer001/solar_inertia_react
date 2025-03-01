@@ -37,7 +37,7 @@ class BillingController extends Controller
             $remain_panel = 0;
         }
 
-        return Inertia::render('Frontend/Billing', compact('siteDetails', 'campaignDetails','selectedPanels','remain_panel'));
+        return Inertia::render('Frontend/Billing', compact('siteDetails', 'campaignDetails','selectedPanels','remain_panel', 'sales_tracked_sum'));
     }
 
     /**
