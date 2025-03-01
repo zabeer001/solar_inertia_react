@@ -18,14 +18,9 @@ export default function AuthenticatedLayout({ header, children }) {
             <nav className="py-3">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
-                        <div className="flex">
-                            <div className="flex shrink-0 items-center">
-                                <Link href="/" className='w-[100px] shadow-md'>
-                                    <img src={logo} alt="" />
-                                </Link>
-                            </div>
-
-                        </div>
+                        <div />
+                            
+                            
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
                             <div className="relative ms-3">

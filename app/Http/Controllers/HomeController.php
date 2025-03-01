@@ -39,7 +39,7 @@ class HomeController extends Controller
         }
 
 
-        return Inertia::render('Frontend/Home', compact('siteDetails', 'campaignDetails', 'homePageContents', 'remain_panel'));
+        return Inertia::render('Frontend/Home', compact('siteDetails', 'campaignDetails', 'homePageContents', 'remain_panel','sales_tracked_sum'));
     }
 
 

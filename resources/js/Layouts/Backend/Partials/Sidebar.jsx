@@ -10,6 +10,7 @@ export function Sidebar({ lists }) {
     const pathname = window.location.pathname; // Replace usePathname from Next.js
     const [isOpen, setIsOpen] = useState(false);
     const { props } = usePage();
+    const logo = props.logo_url
 
     console.log(props);
     // Close menu callback for performance optimization
@@ -17,7 +18,14 @@ export function Sidebar({ lists }) {
 
     const NavigationContent = useMemo(() => {
         return (
+            <div>
+                {/* <div className="flex shrink-0 bg-red-500 justify-center">
+                                <Link href="/" className='w-[100px] shadow-md'>
+                                    <img src={logo} alt="" />
+                                </Link>
+                </div> */}
             <nav className="min-w-[272px] flex-1 px-10 backdrop-blur-lg ">
+                
                 {lists.map((item) => {
                     const Icon = item.icon;
 
@@ -62,6 +70,8 @@ export function Sidebar({ lists }) {
                     );
                 })}
             </nav>
+
+            </div>
         );
     }, [lists, pathname, closeMenu]);
 
@@ -140,12 +150,12 @@ export function Sidebar({ lists }) {
     const DesktopSidebar = useMemo(() => {
         return (
             <div className="fixed left-0 top-0 hidden h-screen max-w-[354px] flex-col overflow-y-auto md:flex">
-                <div className="py-6">
+                <div className="pb-6 flex justify-center items-center">
                     <Link
                         href="/"
                         className="flex items-center gap-2 justify-center w-20"
                     >
-                        {/* <img src={logoImg} alt="Psykick.club" /> */}
+                        <img src={logo} alt="" />
                     </Link>
                 </div>
                 {NavigationContent}

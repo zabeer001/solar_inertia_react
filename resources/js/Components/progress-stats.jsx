@@ -4,7 +4,16 @@ import { usePage } from "@inertiajs/react";
 
 export function ProgressStats() {
     const { props } = usePage();
+
     const campaignDetails = props.campaignDetails;
+    let c=campaignDetails.no_solar_panels;
+    let g=props.sales_tracked_sum;
+    
+
+    let h=g*c;
+    let a=campaignDetails.target;
+    let j=(h/a)*100    
+
     console.log("campaign Details", props);
 
     return (
@@ -45,17 +54,26 @@ export function ProgressStats() {
                             <path d="M6 16h12" />
                         </svg>
                     </div>
-                    <div className="text-4xl font-bold text-[#4CAF50]">{props.remain_panel}</div>
+                    <div className="text-4xl font-bold text-[#4CAF50]">
+                        {props.remain_panel}
+                    </div>
                     <div className="text-[#4CAF50]">Panels Remaining</div>
                 </div>
                 <div>
                     <div className="text-xl font-semibold mb-2">
                         Total {campaignDetails.target}
                     </div>
-                    <Progress value={68} className="h-2 bg-white" />
+                    <Progress value={j} className="h-2 bg-white" />
                     <div className="flex justify-between text-sm mt-1">
-                        <span>$1,020,000 Raised</span>
-                        <span>68%</span>
+                        <span>
+                            $
+                            {(
+                                 (h ?? 0)
+                            ).toFixed(2)}{" "}
+                            Raised
+                        </span>
+
+                        <span>{j.toFixed(2)}%</span>
                     </div>
                 </div>
             </div>
