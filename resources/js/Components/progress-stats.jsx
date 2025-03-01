@@ -6,15 +6,18 @@ export function ProgressStats() {
     const { props } = usePage();
 
     const campaignDetails = props.campaignDetails;
-    let c=campaignDetails.no_solar_panels;
-    let a=campaignDetails.target;
-    let g=props.sales_tracked_sum;
+    const c = campaignDetails.target / campaignDetails.no_solar_panels;
+    const a = campaignDetails.target;
+    const g = props.sales_tracked_sum;
+
+    console.log("bill",g);
+    
     
 
-    let h=g*c;
-    let j=(h/a)*100;    
+    const h = g * c;
+    const j = (h / a) * 100;    
 
-    if(j<=0){
+    if(j<=1){
         j=1;
     }
 
@@ -69,15 +72,9 @@ export function ProgressStats() {
                     </div>
                     <Progress value={j} className="h-2 bg-white" />
                     <div className="flex justify-between text-sm mt-1">
-                        <span>
-                            $
-                            {(
-                                 (h ?? 0)
-                            ).toFixed(2)}{" "}
-                            Raised
-                        </span>
+                        <span>${(h ?? 0).toFixed(2)} Raised</span>
 
-                        <span>{j.toFixed(2)}%</span>
+                        <span>{j == 1 ? "<1" : j.toFixed(2)}%</span>
                     </div>
                 </div>
             </div>
