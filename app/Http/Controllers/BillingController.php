@@ -22,11 +22,11 @@ class BillingController extends Controller
         $campaignDetails = CampaignDetails::first();
 
         if ($siteDetails) {
-            $siteDetails->main_image_url = $siteDetails->main_image ? asset('storage/' . $siteDetails->main_image) : null;
-            $siteDetails->gallery_image_1_url = $siteDetails->gallery_image_1 ? asset('storage/' . $siteDetails->gallery_image_1) : null;
-            $siteDetails->gallery_image_2_url = $siteDetails->gallery_image_2 ? asset('storage/' . $siteDetails->gallery_image_2) : null;
+            $siteDetails->main_image_url = $siteDetails->main_image ? asset('uploads/' . $siteDetails->main_image) : null;
+            $siteDetails->gallery_image_1_url = $siteDetails->gallery_image_1 ? asset('uploads/' . $siteDetails->gallery_image_1) : null;
+            $siteDetails->gallery_image_2_url = $siteDetails->gallery_image_2 ? asset('uploads/' . $siteDetails->gallery_image_2) : null;
 
-            $siteDetails->logo_url = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
+            $siteDetails->logo_url = $siteDetails->logo ? asset('uploads/' . $siteDetails->logo) : null;
         }
 
         $sales_tracked_sum = SalesTracked::where('status', 'paid')->sum('panels_purchased');
