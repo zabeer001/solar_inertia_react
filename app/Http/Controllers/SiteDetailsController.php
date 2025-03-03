@@ -59,10 +59,10 @@ class SiteDetailsController extends Controller
         $heroSection = SiteDetails::first();
 
         if ($heroSection) {
-            $heroSection->main_image_url = $heroSection->main_image ? asset('storage/' . $heroSection->main_image) : null;
-            $heroSection->gallery_image_1_url = $heroSection->gallery_image_1 ? asset('storage/' . $heroSection->gallery_image_1) : null;
-            $heroSection->gallery_image_2_url = $heroSection->gallery_image_2 ? asset('storage/' . $heroSection->gallery_image_2) : null;
-            $heroSection->logo_url = $heroSection->logo ? asset('storage/' . $heroSection->logo) : null;
+            $heroSection->main_image_url = $heroSection->main_image ? asset('uploads/' . $heroSection->main_image) : null;
+            $heroSection->gallery_image_1_url = $heroSection->gallery_image_1 ? asset('uploads/' . $heroSection->gallery_image_1) : null;
+            $heroSection->gallery_image_2_url = $heroSection->gallery_image_2 ? asset('uploads/' . $heroSection->gallery_image_2) : null;
+            $heroSection->logo_url = $heroSection->logo ? asset('uploads/' . $heroSection->logo) : null;
         }
 
 
@@ -118,37 +118,50 @@ class SiteDetailsController extends Controller
 
         $heroSection->hero_title = $request->hero_title;
         $heroSection->hero_description = $request->hero_description;
-        $heroSection->card_text = $request->card_text; 
-        $heroSection->card_btn = $request->card_btn; 
+        $heroSection->card_text = $request->card_text;
+        $heroSection->card_btn = $request->card_btn;
 
         // Handle image uploads without deleting old ones if not provided
         if ($request->hasFile('main_image')) {
-            if ($heroSection->main_image) {
-                Storage::disk('public')->delete($heroSection->main_image); // Delete old image
-            }
-            $heroSection->main_image = $request->file('main_image')->store('images', 'public');
+            // if ($heroSection->main_image) {
+            //     unlink(public_path('uploads/' . $heroSection->main_image)); // Delete old image
+            // }
+            $file = $request->file('main_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $heroSection->main_image = $filename;
         }
 
         if ($request->hasFile('gallery_image_1')) {
-            if ($heroSection->gallery_image_1) {
-                Storage::disk('public')->delete($heroSection->gallery_image_1);
-            }
-            $heroSection->gallery_image_1 = $request->file('gallery_image_1')->store('images', 'public');
+            // if ($heroSection->gallery_image_1) {
+            //     unlink(public_path('uploads/' . $heroSection->gallery_image_1));
+            // }
+            $file = $request->file('gallery_image_1');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $heroSection->gallery_image_1 = $filename;
         }
 
         if ($request->hasFile('gallery_image_2')) {
-            if ($heroSection->gallery_image_2) {
-                Storage::disk('public')->delete($heroSection->gallery_image_2);
-            }
-            $heroSection->gallery_image_2 = $request->file('gallery_image_2')->store('images', 'public');
+            // if ($heroSection->gallery_image_2) {
+            //     unlink(public_path('uploads/' . $heroSection->gallery_image_2));
+            // }
+            $file = $request->file('gallery_image_2');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $heroSection->gallery_image_2 = $filename;
         }
 
         if ($request->hasFile('logo')) {
-            if ($heroSection->logo) {
-                Storage::disk('public')->delete($heroSection->logo);
-            }
-            $heroSection->logo = $request->file('logo')->store('logos', 'public');
+            // if ($heroSection->logo) {
+            //     unlink(public_path('uploads/' . $heroSection->logo));
+            // }
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $heroSection->logo = $filename;
         }
+
 
         $heroSection->save();
 

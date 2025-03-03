@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <div className="scroll-smooth  ">
             <MainContent content={props} />
-            <div className=" h-screen container mx-auto md:pt-24" id="gallery">
+            <div className="container mx-auto md:pt-24" id="gallery">
                 <h1 className="text-4xl font-extrabold mb-8">
                     Project Gallery:
                 </h1>

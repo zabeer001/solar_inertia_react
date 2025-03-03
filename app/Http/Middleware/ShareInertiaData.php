@@ -25,7 +25,7 @@ class ShareInertiaData
     
         if ($siteDetails) {
             // Add the logo URL to the shared data
-            $sharedData['logo_url'] = $siteDetails->logo ? asset('storage/' . $siteDetails->logo) : null;
+            $sharedData['logo_url'] = $siteDetails->logo ? asset('uploads/' . $siteDetails->logo) : null;
         } else {
             // Fallback if no site details are found
             $sharedData['logo_url'] = null;

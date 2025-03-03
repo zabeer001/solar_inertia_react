@@ -20,19 +20,10 @@ export function Hero() {
             </div>
             <div className="relative container mx-auto px-4 h-full flex flex-col justify-center text-white">
                 <h1 className="text-5xl md:text-7xl font-extrabold max-w-3xl leading-tight">
-                    Powering a
-                    <br />
-                    Sustainable Future
-                    <br />
-                    with Solar Energy
+                    {props.siteDetails.hero_title}
                 </h1>
                 <p className="mt-6 text-lg max-w-2xl">
-                    Join us in building a brighter future for The Indian Hill
-                    School District by donating to help install a solar array on
-                    the roof of our new Sports Complex. Your tax-deductible
-                    charitable contribution will support the school, protect the
-                    environment, and create lasting financial benefits for our
-                    entire community.
+                    {props.siteDetails.hero_description}
                 </p>
             </div>
         </section>

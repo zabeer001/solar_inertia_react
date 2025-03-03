@@ -78,7 +78,7 @@ export function Sidebar({ lists }) {
     const UserProfile = useMemo(() => {
         return (
             <div className="border-t border-white/10 p-4">
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                     <div>
                         <h3>AV</h3>
                     </div>
@@ -90,7 +90,7 @@ export function Sidebar({ lists }) {
                             alison.e@rayna.ui
                         </p>
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }, []);

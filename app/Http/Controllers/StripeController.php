@@ -61,7 +61,6 @@ class StripeController extends Controller
             ],
             'mode' => 'payment',
             'metadata' => [
-                'user_id' => Auth::id(),
                 'sales_tracked_id' => $salesTracked->id,
             ],
             'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
@@ -73,6 +72,7 @@ class StripeController extends Controller
 
     public function success(Request $request)
     {
+        
         // Flash success session message
         session()->flash('success', true);
 
@@ -83,18 +83,17 @@ class StripeController extends Controller
         }
 
         try {
+            // dd("hi");
             // Set the Stripe API key and retrieve the session
             Stripe::setApiKey(config('stripe.sk'));
             $session = Session::retrieve($sessionId);
 
-            // Validate that the session belongs to the correct user
-            $user = Auth::user();
-            if (!$user || $session->metadata->user_id != $user->id) {
-                return Inertia::location(route('frontend.billing'));
-            }
+            // dd($session->metadata->sales_tracked_id);
 
             // Update the related SalesTracked record to "paid"
-            if (isset($session->metadata->sales_tracked_id)) {
+            if ($session->metadata->sales_tracked_id) {
+                // dd("hi");
+
                 $salesTracked = SalesTracked::find($session->metadata->sales_tracked_id);
                 if ($salesTracked) {
                     $salesTracked->status = 'paid';

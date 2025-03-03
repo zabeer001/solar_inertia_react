@@ -60,15 +60,14 @@ export function MainContent({ content }) {
                     )}
 
                     <div className="text-center py-8">
-                        <p className="text-gray-800 font-medium mb-4">
-                            At Solar Foundation, we're not just installing solar
-                            panels...
+                        <p className="text-gray-800 font-medium mb-4 py-2 px-4 bg-pink-50/80 text-xl rounded-lg">
+                            {content.siteDetails.card_text}
                         </p>
                         <Button
                             variant="destructive"
                             className="bg-[#D32F2F] hover:bg-[#B71C1C]"
                         >
-                            LEARN ABOUT THE NEW SPORTS COMPLEX
+                            {content.siteDetails.card_btn}
                         </Button>
                     </div>
                 </div>
@@ -86,7 +85,7 @@ export function MainContent({ content }) {
                                     className={`flex items-center space-x-3 p-4 rounded-md duration-500 ${
                                         selectedPanels === panels
                                             ? "bg-[green] text-white"
-                                            : "bg-[green]/70"
+                                            : "bg-[green]/60"
                                     }`}
                                 >
                                     <input
