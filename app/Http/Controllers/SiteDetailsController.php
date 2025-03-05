@@ -99,17 +99,6 @@ class SiteDetailsController extends Controller
     public function storeOrUpdate(Request $request)
     {
 
-        // $validatedData = $request->validate([
-        //     'hero_title' => 'nullable|string|max:255',
-        //     'hero_description' => 'nullable|string|max:500',
-        //     'card_text' => 'nullable|string|max:255',
-        //     'card_btn' => 'nullable|string|max:255',
-        //     'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'gallery_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'gallery_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
-
         $heroSection = SiteDetails::first();
 
         if (!$heroSection) {
